@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-import Post from './postModel.js';
 
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
