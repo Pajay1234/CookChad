@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomeScreen from '../pages/HomeScreen';
+import RegisterScreen from '../pages/RegisterScreen';
 
 //router props type
 interface routerProps {
@@ -32,7 +32,7 @@ class Router extends React.Component<routerProps, routerState> {
                         sample code for adding route
                         <Route path="/mycomponent/:id" component={MyComponent} /> 
                         */}
-                        <Route path="/" element={<HomeScreen />} />  
+                        <Route path="/register" element={<RegisterScreen />} />  
                     </Routes>
                 </BrowserRouter>
             </div>

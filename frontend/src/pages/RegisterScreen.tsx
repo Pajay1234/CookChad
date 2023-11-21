@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import bcrypt from 'bcryptjs'
 
-const HomeScreen = () => {
+
+const RegisterScreen = () => {
 
   const [ name, setName ] = useState('')
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
-  const style= {
+  const style: React.CSSProperties = {
     backgroundColor: '#ff4f61',
     width: "100vw",
-    height: "100vh"
+    height: "100vh",
   }
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    
     const user = {
       name: name,
       email: email, 
@@ -31,11 +36,10 @@ const HomeScreen = () => {
 
   return (
     <div id="HomeScreen" style={ style }>
-      <p>Home</p>
+      <h1>Register</h1>
       <input type="text" placeholder="name" onChange={(e) => setName(e.target.value)} />
       <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
       <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-
       <button type="submit" onClick={handleSubmit}>Submit</button>
     </div>
   )
@@ -43,4 +47,4 @@ const HomeScreen = () => {
  
 }
 
-export default HomeScreen
+export default RegisterScreen
