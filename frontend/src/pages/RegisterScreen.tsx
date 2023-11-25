@@ -16,7 +16,7 @@ const RegisterScreen = () => {
   }
 
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     
     const user = {
@@ -32,7 +32,7 @@ const RegisterScreen = () => {
     catch (error) {
       console.log(error);
     }
-  };
+  }
 
   return (
     <div id="HomeScreen" style={ style }>
@@ -40,7 +40,7 @@ const RegisterScreen = () => {
       <input type="text" placeholder="name" onChange={(e) => setName(e.target.value)} />
       <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
       <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
     </div>
   )
 
