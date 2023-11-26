@@ -40,7 +40,7 @@ class Router extends React.Component<routerProps, routerState> {
                         <Route path="/mycomponent/:id" component={MyComponent} /> 
                         */}
                         <Route path="/register" element={<RegisterScreen />} />  
-                        <Route path="/login" element={<LoginScreen />} />  
+                        <Route path="/" element={<LoginScreen />} />  
                         <Route path="/dashboard" element={<DashboardScreen />} />  
                     </Routes>
                 </BrowserRouter>

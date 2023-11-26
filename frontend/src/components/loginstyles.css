@@ -1,0 +1,36 @@
+.loginContainer{
+    width: 100vw;
+    height: 93vh;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: row;
+}
+
+.loginLeft{
+    width: 45%;
+    height: 100%;
+    background-color: purple;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoText{
+
+}
+
+.loginRight{
+    width: 55%;
+    height: 100%;
+    background-color: red;
+}
+
+.loginBox{
+    background-color: blue;
+    height: 90%;
+    width: 90%;
+    margin: 5% auto;
+    display: flex;
+    flex-direction: column;
+}

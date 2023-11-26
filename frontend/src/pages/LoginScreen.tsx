@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { useNavigate } from 'react-router-dom'
+import '../components/loginstyles.css'
+import '../components/commonstyles.css'
 
 
 const LoginScreen = () => {
@@ -10,12 +12,6 @@ const LoginScreen = () => {
   const [ password, setPassword ] = useState('')
 
   const navigate = useNavigate();
-
-  const style: React.CSSProperties = {
-    backgroundColor: '#ff4f61',
-    width: "100vw",
-    height: "100vh",
-  }
 
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,11 +36,23 @@ const LoginScreen = () => {
   }
 
   return (
-    <div id="HomeScreen" style={ style }>
-      <h1>Login</h1>
-      <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+    <div className = 'pageContainer'>
+      <div className = 'loginContainer'>
+        <div className = 'loginLeft'>
+          CookChad!
+        </div>
+        <div className = 'loginRight'>
+          <div className = 'loginBox'>
+            <h1>Login Here</h1>
+            <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+            <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+          </div>
+        </div>
+      </div>
+      <div className = 'footer'>
+        Footer including about page, ect.
+      </div>
     </div>
   )
 
