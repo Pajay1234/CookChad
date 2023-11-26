@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&family=Potta+One&display=swap');
+
+.pageContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Neucha', sans-serif;
+    font-size: 30px;
+}
+
+.footer{
+    height: 7%;
+    width: 100%;
+    background-color: brown;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
