@@ -1,7 +1,7 @@
 import Post from "../models/postModel.js";
 import User from "../models/userModel.js";
 
-export const createPost = async (req, res) => {
+const createPost = async (req, res) => {
   try {
     const { title, content, userId } = req.body;
     const newPost = new Post({
@@ -19,7 +19,7 @@ export const createPost = async (req, res) => {
   }
 }
 
-export const getPosts = async (req, res) => {
+const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
     res.status(200).json(posts);
@@ -28,7 +28,7 @@ export const getPosts = async (req, res) => {
   }
 }
 
-export const getUserPost = async (req, res) => {
+const getUserPost = async (req, res) => {
   try {
     const {userId } = req.params;
     const post = await Post.find({ creator: userId });
@@ -38,7 +38,7 @@ export const getUserPost = async (req, res) => {
   }
 }
 
-export const likePost = async (req, res) => {
+const likePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     const userId = req.body.userId;
@@ -60,3 +60,5 @@ export const likePost = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 }
+
+module.exports = { createPost, getPosts, getUserPost, likePost };
