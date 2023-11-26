@@ -9,21 +9,27 @@ const DashboardScreen = () => {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
+      const fetchData = async () => {
+        const token = localStorage.getItem('token');
         if (token) {
-            const user: any = jwtDecode(token)
-            setEmail(user.email)
-            if (!user) {
-                localStorage.removeItem('token')
-                navigate('/login')
-            }   
-
-
+          try {
+            const response: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
+            setName(response.data.name);
+          } catch (error) {
+            localStorage.removeItem('token');
+            navigate('/');
+          }
         }
-    }, [])
+        else {
+          navigate('/')
+        }
+      };
+
+      fetchData();
+    }, []);
 
    
 
@@ -36,7 +42,7 @@ const DashboardScreen = () => {
   return (
     <div id="HomeScreen" style={ style }>
       <h1>Dashboard</h1>
-      <p>Hey {email}</p>
+      <p>Hey {name}</p>
       
     </div>
   )

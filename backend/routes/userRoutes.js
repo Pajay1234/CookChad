@@ -3,6 +3,7 @@ const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.post('/createUser', userController.setUser);
-router.post('/getUser', userController.getUser);
+router.post('/getUserTokenByLogin', userController.getUserTokenByLogin);
+router.post('/getUserByJWTToken', userController.getUserByJWTToken);
 
 module.exports = router;

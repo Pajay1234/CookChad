@@ -23,12 +23,11 @@ const LoginScreen = () => {
     };
 
     try { 
-      const response = await axios.post('/api/user/getUser', user);
+      const response = await axios.post('/api/user/getUserTokenByLogin', user);
       if (response.data) {
         localStorage.setItem('token', response.data)
         navigate('/dashboard')
       }
-      console.log(response);
     }
     catch (error) {
       console.log(error);
