@@ -1,5 +1,5 @@
-import Post from "../models/postModel.js";
-import User from "../models/userModel.js";
+const Post = require("../models/postModel.js");
+const User = require("../models/userModel.js");
 
 const createPost = async (req, res) => {
   try {

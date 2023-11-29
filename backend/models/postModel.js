@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
   title: { type: String, required: true },
@@ -6,7 +6,7 @@ const postSchema = mongoose.Schema({
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   tags: [String],
   selectedFile: String,
-  likes: { type: Map, of: Boolean },
+  likes: { type: Array, default: []}, //array of userIds that liked
   comments: { type: Array, default: [] },
 }, {
   timestamps: true

@@ -5,6 +5,9 @@ const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: { type: String, required: true, min: 5 },
     friends: { type: Array, default: [] }, 
+    posts: { type: Array, default: [] }, 
+    likedPosts: { type: Array, default: [] }, 
+    savedPosts: { type: Array, default: [] }, 
 }, {
     timestamps: true
 })

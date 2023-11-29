@@ -1,4 +1,5 @@
 const User = require("../models/userModel.js");
+const Post = require("../models/postModel.js");
 const jwt = require("jsonwebtoken");
 
 const setUser = async (req, res) => {
