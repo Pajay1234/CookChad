@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import RegisterScreen from '../pages/RegisterScreen';
 import LoginScreen from '../pages/LoginScreen';
 import DashboardScreen from '../pages/Dashboard';
@@ -39,8 +39,9 @@ class Router extends React.Component<routerProps, routerState> {
                         sample code for adding route
                         <Route path="/mycomponent/:id" component={MyComponent} /> 
                         */}
+                        <Route path="/" element={<Navigate to="/login"/>}/>  
                         <Route path="/register" element={<RegisterScreen />} />  
-                        <Route path="/" element={<LoginScreen />} />  
+                        <Route path="/login" element={<LoginScreen />} />  
                         <Route path="/dashboard" element={<DashboardScreen />} />  
                     </Routes>
                 </BrowserRouter>
