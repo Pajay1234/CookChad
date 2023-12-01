@@ -1,11 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 const postSchema = mongoose.Schema({
-  title: { type: String, required: true },
+  caption: { type: String, required: true },
   content: { type: String, required: true },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   tags: [String],
-  selectedFile: String,
   likes: { type: Map, of: Boolean },
   comments: { type: Array, default: [] },
 }, {

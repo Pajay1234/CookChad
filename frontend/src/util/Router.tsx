@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RegisterScreen from '../pages/RegisterScreen';
 import LoginScreen from '../pages/LoginScreen';
 import DashboardScreen from '../pages/Dashboard';
+import CreatePost from '../pages/CreatePost';
 
 //router props type
 interface routerProps {
@@ -42,6 +43,7 @@ class Router extends React.Component<routerProps, routerState> {
                         <Route path="/register" element={<RegisterScreen />} />  
                         <Route path="/" element={<LoginScreen />} />  
                         <Route path="/dashboard" element={<DashboardScreen />} />  
+                        <Route path="/create_post" element={<CreatePost />} />
                     </Routes>
                 </BrowserRouter>
             </div>

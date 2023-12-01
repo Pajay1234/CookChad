@@ -1,11 +1,11 @@
-import Post from "../models/postModel.js";
-import User from "../models/userModel.js";
+const Post = require('../models/postModel');
+
 
 const createPost = async (req, res) => {
   try {
-    const { title, content, userId } = req.body;
+    const { caption, content, userId } = req.body;
     const newPost = new Post({
-      title: title,
+      caption: caption,
       content: content,
       creator: userId,
       likes: {},

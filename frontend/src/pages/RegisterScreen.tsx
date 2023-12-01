@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
+import { useNavigate } from 'react-router-dom'
 
 
 const RegisterScreen = () => {
@@ -8,6 +9,8 @@ const RegisterScreen = () => {
   const [ name, setName ] = useState('')
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+
+  const navigate = useNavigate()
 
   const style: React.CSSProperties = {
     backgroundColor: '#ff4f61',
@@ -27,6 +30,7 @@ const RegisterScreen = () => {
 
     try { 
       const response = await axios.post('/api/user/createUser', user);
+      navigate('/')
       console.log(response);
     }
     catch (error) {
