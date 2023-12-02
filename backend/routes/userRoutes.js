@@ -5,5 +5,6 @@ const router = express.Router();
 router.post('/createUser', userController.setUser);
 router.post('/getUserTokenByLogin', userController.getUserTokenByLogin);
 router.post('/getUserByJWTToken', userController.getUserByJWTToken);
+router.get('/getUser/:userID', userController.getUserByID);
 
 module.exports = router;
