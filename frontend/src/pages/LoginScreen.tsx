@@ -45,16 +45,26 @@ const LoginScreen = () => {
     <div className = 'pageContainer'>
       <div className = 'loginContainer'>
         <div className = 'loginLeft'>
-          CookChad!
+          <h1 className = 'leftText1'>
+            CookChad
+          </h1>
+          <h1 className = 'leftText2'>
+            Join the Foodment.
+          </h1>
+          <h1 className = 'leftText2'>
+            [insert image]
+          </h1>
         </div>
         <div className = 'loginRight'>
           <div className = 'loginBox'>
-            <h1>Login Here</h1>
-            <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-            <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-            <p>Don't have an account? <Link to="/register">Register here.</Link></p>
-            {wrongCredentialBool === true ? (<p>Email or password is wrong.</p>) : (<p></p>)}
-            <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+            <div className = 'innerLoginBox'>
+              <h1 className = "heading">What are you waiting for?</h1>
+              <input type="text" className = "textBox" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+              <input type="text" className = "textBox" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              <p className = "heading2"> Don't have an account? <a href ="/register" className = "hyperlinkColor" >Register now</a></p>
+              <button type="submit" className = "loginButton" onClick={(e) => handleSubmit(e)}>Log In</button>
+              {wrongCredentialBool === true ? (<p>Email or password is wrong.</p>) : (<p></p>)}
+            </div>
           </div>
         </div>
       </div>
