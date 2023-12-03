@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import axios from 'axios'
+import Post from '../components/Post'
 
 
 
 const UserProfile = () => {
-    const [posts, setPosts] = useState([])
-    const [userDetails, setUserDetails] = useState({
-        'creator': null
-    })
+    const [posts, setPosts] = useState<any>([])
+    const [userDetails, setUserDetails] = useState<any>({})
+    const { userID } = useParams();
 
     const navigate = useNavigate();
 
@@ -17,13 +18,10 @@ const UserProfile = () => {
     useEffect(() => {
         const handleScroll = () => {
             // Check if the user has scrolled to the bottom
-            console.log("handle scroll");
-
             const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
             if (isAtBottom) {
-                //console.log('at bottom!');
-
+                console.log('at bottom!');
                 //fetch next n posts
 
             }
@@ -31,23 +29,18 @@ const UserProfile = () => {
 
         const fetchData = async () => {
             const token = localStorage.getItem('token');
-            console.log("fetch data");
             if (token) {
                 try {
-                    
-                    // const posts: any = await axios.post('/api/post/getUserPosts', {id: uid});
-                    // setPosts(posts.data);
-                    
-                    const response: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
-                    console.log("yuh");
-                    const user: any = response.data;
-                    setUserDetails(response.data);
-                    
+                    const response: any = await axios.get(`/api/user/getUser/${userID}`);
+                    await setUserDetails(response.data);
+                    const posts: any = await axios.post('/api/user/getUserPosts', { uid: userID});
+                    await setPosts(posts.data);
+                    /*
+                    check if user can access friends, log out, edit posts, etc. 
+                    check if param user id and userID based on token match
+                    */
                 } catch (error: any) {
-                    if (error.response && error.response.status === 401) {
-                        localStorage.removeItem('token');
-                        navigate('/');
-                    }
+                    console.log(error);
                 }
             }
             else {
@@ -74,8 +67,18 @@ const UserProfile = () => {
         <div >
             <p>user profile</p>
 
-            <p>user details</p>
+            <p>{userDetails.name}</p>
+            <p>{userDetails.email}</p>
             
+            
+            <div className = "dashContainer">
+        
+               
+                {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} userId={post.creator}/>)
+
+                )}
+            </div>
+        
 
         </div>
 

@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongoose').Types
 const Post = require('../models/postModel');
 const axios = require('axios');
 const dotenv = require('dotenv').config()
@@ -21,16 +22,26 @@ const createPost = async (req, res) => {
         'Authorization': process.env.GPT_KEY
       }
     }
-    const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
+    console.log("starting gpt call");
+    //const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
     const newPost = new Post({
       caption: caption,
       content: content,
       creator: userId,
       likes: {},
       comments: [],
-      recipe: response.data.choices[0].message.content
+      //recipe: response.data.choices[0].message.content
+      recipe: "will display recipe later"
     });
-    await newPost.save();
+    console.log("done with gpt call");
+    const doc = await newPost.save();
+
+    const body = {
+      uid: userId,
+      pid: doc._id
+    }
+    const userResponse = await axios.post(`http://localhost:5000/api/user/createPostUser`, body);
+
 
     res.status(201).json(newPost);
   } catch (error) {
@@ -50,7 +61,6 @@ const getPosts = async (req, res) => {
 const getPostByID = async (req, res) => {
   try {
     const { postId } = req.params;
-    console.log(postId)
     const post = await Post.findById(postId);
     res.status(200).json(post);
   } catch (error) {
@@ -60,8 +70,13 @@ const getPostByID = async (req, res) => {
 
 const getUserPost = async (req, res) => {
   try {
-    const {userId } = req.params;
-    const post = await Post.find({ creator: userId });
+    const { userID }  = req.params;
+    console.log(userID);
+    const param = new ObjectId(userID);
+    console.log(param);
+    const post = await Post.find({ creator: param});
+    console.log("bruh");
+    console.log(post)
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });

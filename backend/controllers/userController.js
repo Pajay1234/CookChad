@@ -1,6 +1,8 @@
 const User = require("../models/userModel.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs"); 
+const { ObjectId } = require('mongoose').Types
+const Post = require('../models/postModel');
 
 const setUser = async (req, res) => {
   const user = req.body;
@@ -8,7 +10,7 @@ const setUser = async (req, res) => {
   user.password = await bcrypt.hash(user.password, 10);
   const newUser = new User(user);
   try {
-    await newUser.save();
+    await newUser.save(); 
     res.status(201).json(newUser);
   } catch (error) {
     console.log("error: " + error.message);
@@ -41,22 +43,50 @@ const getUserByJWTToken = async (req, res) => {
     const { JWTToken } = req.body;
     jwt.verify(JWTToken, process.env.JWT_SECRET)
     const userID = jwt.decode(JWTToken);
-    const user = await User.findOne({ _id: userID.id });
+    const user = await User.findOne({ _id: userID.id }, {name: 1, email: 1});
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
   } 
 }
 
+const createPostUser = async (req, res) => {
+  try {
+
+    console.log(req.body);
+    const response = await User.updateOne({_id: new ObjectId(req.body.uid)}, {$push: {post: req.body.pid}});
+    console.log(response);
+    res.status(200).json({msg: 1});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 const getUserByID = async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await User.findById(userId);
+    const user = await User.findOne({ _id: new ObjectId(userId) }, {name: 1, email: 1});
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
   } 
 }
+
+const getUserPosts = async (req, res) => {
+  try {
+    
+    const posts = await User.find({_id: new ObjectId(req.body.uid)}, {post: 1}).exec();
+    
+    const fullPosts = await Promise.all(
+      posts[0].post.map((id) => Post.findById(id))
+    );
+   
+    res.status(200).json(fullPosts);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 
 // not completed
 const getUserFriends = async (req, res) => {
@@ -72,4 +102,4 @@ const getUserFriends = async (req, res) => {
   }
 }
 
-module.exports = { setUser, getUserTokenByLogin, getUserByJWTToken, getUserByID, getUserFriends };
+module.exports = { setUser, getUserTokenByLogin, getUserByJWTToken, getUserByID, getUserFriends, createPostUser, getUserPosts };

@@ -47,7 +47,7 @@ class Router extends React.Component<routerProps, routerState> {
                         <Route path="/" element={<LoginScreen />} />  
                         <Route path="/dashboard" element={<DashboardScreen />} />  
                         <Route path="/create-post" element={<CreatePost />} />
-                        <Route path="/user-profile" element={<UserProfile />} />
+                        <Route path="/user-profile/:userID" element={<UserProfile />} />
                     </Routes>
                 </BrowserRouter>
             </div>

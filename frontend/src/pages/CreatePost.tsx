@@ -24,6 +24,7 @@ const CreatePost = () => {
           };
           let response = null;
           setIsSubmitting(true);
+          console.log("clicky");
           if (!isSubmitting) {
             response = await axios.post('/api/post/createPost', post);
           }

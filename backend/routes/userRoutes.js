@@ -6,5 +6,7 @@ router.post('/createUser', userController.setUser);
 router.post('/getUserTokenByLogin', userController.getUserTokenByLogin);
 router.post('/getUserByJWTToken', userController.getUserByJWTToken);
 router.get('/getUser/:userId', userController.getUserByID);
+router.post('/createPostUser', userController.createPostUser);
+router.post('/getUserPosts', userController.getUserPosts);
 
 module.exports = router;
