@@ -1,9 +1,28 @@
 const Post = require('../models/postModel');
-
+const axios = require('axios');
+const dotenv = require('dotenv').config()
 
 const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
+    const gptRequest = { 
+      "model": "gpt-3.5-turbo",
+        "messages": [
+          {
+              "role": "user",
+              "content": `In this caption, detect a food: "${caption}" and give me a recipe for it.`
+          }
+        ],
+      "temperature": 0.7
+    }
+    const header = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GPT_KEY}`
+      }
+    }
+    const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
+    console.log(response)
     const newPost = new Post({
       caption: caption,
       content: content,

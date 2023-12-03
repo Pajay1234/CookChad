@@ -4,6 +4,7 @@ const postSchema = mongoose.Schema({
   caption: { type: String, required: true },
   content: { type: String, required: true },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  recipe: { type: String, default: ""},
   tags: [String],
   likes: { type: Map, of: Boolean },
   comments: { type: Array, default: [] },

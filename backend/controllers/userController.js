@@ -1,6 +1,6 @@
 const User = require("../models/userModel.js");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs"); 
 
 const setUser = async (req, res) => {
   const user = req.body;
@@ -50,9 +50,7 @@ const getUserByJWTToken = async (req, res) => {
 const getUserByID = async (req, res) => {
   try {
     const { userID } = req.params;
-    console.log(userID)
     const user = await User.findById(userID);
-    console.log(user)
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
