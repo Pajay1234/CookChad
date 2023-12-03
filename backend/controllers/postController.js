@@ -1,18 +1,19 @@
 const Post = require('../models/postModel');
 const axios = require('axios');
 const dotenv = require('dotenv').config()
+const mongoose = require('mongoose');
 
 const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
-    const gptRequest = { 
+    const gptRequest = {
       "model": "gpt-3.5-turbo",
-        "messages": [
-          {
-              "role": "user",
-              "content": `In this caption, detect a food: "${caption}" and give me a recipe for it.`
-          }
-        ],
+      "messages": [
+        {
+          "role": "user",
+          "content": `In this caption, detect a food: "${caption}" and give me a recipe for it.`
+        }
+      ],
       "temperature": 0.7
     }
     const header = {
@@ -49,7 +50,7 @@ const getPosts = async (req, res) => {
 
 const getPostByID = async (req, res) => {
   try {
-    const { postId } = req.params;
+    const postId = req.params.postId;
     console.log(postId)
     const post = await Post.findById(postId);
     res.status(200).json(post);
@@ -60,7 +61,7 @@ const getPostByID = async (req, res) => {
 
 const getUserPost = async (req, res) => {
   try {
-    const {userId } = req.params;
+    const { userId } = req.params;
     const post = await Post.find({ creator: userId });
     res.status(200).json(post);
   } catch (error) {
@@ -70,9 +71,9 @@ const getUserPost = async (req, res) => {
 
 const likePost = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.postId;
     const userId = req.body.userId;
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(id);
     const isLiked = post.likes.get(userId);
 
     if (isLiked) {
@@ -80,7 +81,7 @@ const likePost = async (req, res) => {
     } else {
       post.likes.set(userId, true);
     }
-    
+
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
@@ -93,4 +94,18 @@ const likePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID };
+const deletePost = async (req, res) => {
+  try {
+    const id = req.params.postId;
+    const deletedPost = await Post.findByIdAndDelete(id);
+    console.log(id)
+    if (!deletedPost) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.status(200).json({ message: "Post deleted successfully." });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, deletePost };

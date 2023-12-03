@@ -11,47 +11,58 @@ import Taskbar from '../components/Taskbar'
 
 const DashboardScreen = () => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [name, setName] = useState('')
-    const [posts, setPosts] = useState([])
+  const [name, setName] = useState('')
+  const [posts, setPosts] = useState([])
 
-    useEffect(() => {
-      const fetchData = async () => {
-        const token = localStorage.getItem('token');
-        if (token) {
-          try {
-            const response: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
-            setName(response.data.name);
-            const posts: any = await axios.post('/api/post/getPosts', {});
-            setPosts(posts.data);
-          } catch (error: any) {
-            if (error.response && error.response.status == 401) {
-              localStorage.removeItem('token');
-              navigate('/');
-            }
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
+          setName(response.data.name);
+          const posts: any = await axios.post('/api/post/getPosts', {});
+          setPosts(posts.data);
+        } catch (error: any) {
+          if (error.response && error.response.status == 401) {
+            localStorage.removeItem('token');
+            navigate('/');
           }
         }
-        else {
-          navigate('/')
-        }
-      };
+      }
+      else {
+        navigate('/')
+      }
+    };
 
-      fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
-  
+
 
   return (
-    <div className = "pageContainer">
+    <div className="pageContainer">
       <Taskbar />
-        <div className = "dashContainer">
-          {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} userId={post.creator} />))}
-        </div>
+      <div className="dashContainer">
+        {posts.map((post: any) => (
+          <Post 
+            key={post._id} 
+            postId={post._id} 
+            caption={post.caption}
+            content={post.content} 
+            userId={post.creator} 
+            likes={post.likes}
+            comments={post.comments}
+            tags={post.tags}
+          />
+        ))}
+      </div>
     </div>
   )
 
- 
+
 }
 
 export default DashboardScreen
