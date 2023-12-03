@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&family=Neucha&family=Potta+One&display=swap');
+
 .loginContainer{
     width: 100vw;
     height: 93vh;
-    background-color: lightblue;
+    background-color: rgb(240, 148, 73);
     display: flex;
     flex-direction: row;
 }
@@ -9,28 +11,84 @@
 .loginLeft{
     width: 45%;
     height: 100%;
-    background-color: purple;
+    background-color: rgb(240, 148, 73);
+    padding-bottom: 10%;
+    padding-left: 5%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.logoText{
-
+    flex-direction: column;
 }
 
 .loginRight{
-    width: 55%;
+    width: 62%;
     height: 100%;
-    background-color: red;
+    background-color: rgb(240, 148, 73);
 }
 
 .loginBox{
-    background-color: blue;
-    height: 90%;
-    width: 90%;
-    margin: 5% auto;
+    background-color:  rgb(255, 255, 255);
+    height: 60%;
+    width: 55%;
+    margin: 15% auto;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.innerLoginBox{
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    margin: auto;
+    text-align: left;
+}
+
+.heading{
+    font-size: 4.5vh;
+    padding: 0.25em;
+}
+
+.heading2{
+    font-size: 2.5vh;
+    padding: 0.35em;
+    padding-left:0.5em;
+}
+
+.textBox{
+    padding: 0.1em;
+    font-size: 2.5vh;
+    width: 80%;
+    margin: 0.4em;
+    margin-left: 0.5em;
+    border: 1px solid;
+    color:rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.5em;
+    border-color: black;
+}
+
+.loginButton{
+    background-color:  rgb(97, 212, 81);
+    padding: 0.1em;
+    margin: 0.4em;
+    width: 80%;
+    font-size: 2.5vh;
+    border-radius: 0.5em;
+    border: 2px solid;
+}
+
+.leftText1{
+    font-style: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 8.5vh;
+}
+
+.leftText2{
+    font-style: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 5.3vh;
 }

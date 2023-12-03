@@ -1,20 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Neucha&family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Neucha&family=Potta+One&display=swap');
 
 .pageContainer{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: 'Neucha', sans-serif;
+    font-family: 'Lato';
     font-size: 30px;
 }
 
 .footer{
     height: 7%;
     width: 100%;
-    background-color: brown;
-
+    background-color:  rgb(189, 92, 13);
+    font-size: 2vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.hyperlinkColor{
+    color: blue;
+}
+
+.box{
+    background-color: rgb(129, 137, 139);
+    height: 7vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+ }
+
+ .innerBox{
+    background-color: rgb(84, 188, 214);
+    height: 90%;
+    width: 100%;
+    margin: auto;
+    display: flex;
+ }
+ 
+ .basicText{
+     background-color: rgb(84, 188, 214);
+     height: 100%;
+     width: 25%;
+  }
+ 
+ .input{
+    border-radius: 1vh;
+    height: 70%;
+    width: 60%;
+    border: none;
+    font-size: 1.0rem;
+    color: black;
+    padding: 0em 1em;
+    text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
+ }
