@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 
 
 const CreatePost = () => {
     const [caption, setCaption] = useState('')
     const [image, setImage] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -19,8 +22,12 @@ const CreatePost = () => {
             content: image,
             userId: userResponse.data._id
           };
-
-          const response = await axios.post('/api/post/createPost', post);
+          let response = null;
+          setIsSubmitting(true);
+          if (!isSubmitting) {
+            response = await axios.post('/api/post/createPost', post);
+          }
+          if (response) navigate('/dashboard')
           console.log(response);
         }
         catch (error) {

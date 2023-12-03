@@ -18,7 +18,7 @@ const createPost = async (req, res) => {
     const header = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GPT_KEY}`
+        'Authorization': process.env.GPT_KEY
       }
     }
     const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
@@ -29,6 +29,7 @@ const createPost = async (req, res) => {
       creator: userId,
       likes: {},
       comments: [],
+      recipe: response.data.choices[0].message.content  
     });
     await newPost.save();
 
