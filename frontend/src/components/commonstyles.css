@@ -22,3 +22,39 @@
 .hyperlinkColor{
     color: blue;
 }
+
+.box{
+    background-color: rgb(129, 137, 139);
+    height: 25%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+ }
+
+ .innerBox{
+    background-color: rgb(84, 188, 214);
+    height: 90%;
+    width: 100%;
+    margin: auto;
+    display: flex;
+ }
+ 
+ .basicText{
+     background-color: rgb(84, 188, 214);
+     height: 100%;
+     width: 25%;
+  }
+ 
+ .input{
+    border-radius: 1vh;
+    height: 70%;
+    width: 60%;
+    border: none;
+    font-size: 1.0rem;
+    color: black;
+    padding: 0em 1em;
+    text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
+ }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import '../components/poststyles.css'
 
 interface PostProps {
   caption: string,
@@ -25,12 +26,12 @@ const Post = ({caption, content, userId}: PostProps) => {
   }, [])
 
   return (
-    <div>
-      
-      <img src={content} />
-
-      <h1>
-      {user}: {caption}
+    <div className ="postContainer">
+      <div className = "imgContainer">
+        <img src={content} />
+      </div>
+      <h1 className = "captionContainer">
+        <strong>{user}:</strong> {caption}
       </h1>
       
       </div>

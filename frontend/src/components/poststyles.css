@@ -1,0 +1,26 @@
+.postContainer { 
+    width: 23.8%;
+    height: 60%;
+    padding: 1%;
+    margin: 0.5%;
+    border: solid;
+    border-width: 0.1vw;
+    border-radius: 0.8vw;
+    font-size: 2vh;
+    background-color: rgb(231, 222, 222);
+}
+
+.imgContainer { 
+    border: solid;
+    border-radius: 5%;
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+    background-color: red;
+}
+
+.captionContainer {
+    max-height: 50%;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}

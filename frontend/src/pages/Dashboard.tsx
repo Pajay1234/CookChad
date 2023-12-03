@@ -4,6 +4,9 @@ import bcrypt from 'bcryptjs'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import Post from '../components/Post'
+import '../components/dashstyles.css'
+import '../components/commonstyles.css'
+import Taskbar from '../components/Taskbar'
 
 
 const DashboardScreen = () => {
@@ -37,20 +40,14 @@ const DashboardScreen = () => {
       fetchData();
     }, []);
 
-   
-
-  const style: React.CSSProperties = {
-    backgroundColor: '#ff4f61',
-    width: "100vw",
-    height: "100vh",
-  }
+  
 
   return (
-    <div id="HomeScreen" style={ style }>
-      <h1>Dashboard</h1>
-      <p>Hey {name}</p>
-      {posts.map((post: any) => (<Post key={post._id} caption={post.caption} content={post.content} userId={post.creator} />))}
-
+    <div className = "pageContainer">
+      <Taskbar />
+      <div className = "dashContainer">
+        {posts.map((post: any) => (<Post key={post._id} caption={post.caption} content={post.content} userId={post.creator} />))}
+      </div>
     </div>
   )
 

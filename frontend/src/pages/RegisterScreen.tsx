@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import { useNavigate } from 'react-router-dom'
+import '../components/registerstyles.css'
+import '../components/commonstyles.css'
 
 
 const RegisterScreen = () => {
@@ -11,12 +13,6 @@ const RegisterScreen = () => {
   const [ password, setPassword ] = useState('')
 
   const navigate = useNavigate()
-
-  const style: React.CSSProperties = {
-    backgroundColor: '#ff4f61',
-    width: "100vw",
-    height: "100vh",
-  }
 
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,12 +35,34 @@ const RegisterScreen = () => {
   }
 
   return (
-    <div id="HomeScreen" style={ style }>
-      <h1>Register</h1>
-      <input type="text" placeholder="name" onChange={(e) => setName(e.target.value)} />
-      <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="text" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+    <div className = "pageContainer">
+      <div className = "registerContainer">
+        <div className = "registerLeft">
+          <h1 className = 'leftText1'>
+            CookChad
+          </h1>
+          <h1 className = 'leftText2'>
+            Free to Register!
+          </h1>
+          <h1 className = 'leftText2'>
+            [insert image]
+          </h1>
+        </div>
+        <div className = "registerRight">
+          <div className = "registerBox">
+            <div className = "innerRegisterBox">
+              <h1 className = "heading">Register Below</h1>
+              <input type="text" className = "textBox" placeholder="name" onChange={(e) => setName(e.target.value)} />
+              <input type="text" className = "textBox" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+              <input type="text" className = "textBox" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+              <button type="submit" className = "registerButton" onClick={(e) => handleSubmit(e)}>Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className = 'footer'>
+        Footer including about page, ect.
+      </div>
     </div>
   )
 
