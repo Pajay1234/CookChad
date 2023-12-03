@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import '../components/poststyles.css'
+import LikeIcon from '../../public/icons/like.png'
 
 interface PostProps {
+  postId: string,
   caption: string,
   content: string,
   userId: string
 
 }
-const Post = ({caption, content, userId}: PostProps) => {
+const Post = ({postId, caption, content, userId}: PostProps) => {
 
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
+  
+  const navigateToPost = () => {
+    navigate(`/post/${postId}`);
+  
+  }
 
   useEffect(() => {
     try {
@@ -26,16 +35,15 @@ const Post = ({caption, content, userId}: PostProps) => {
   }, [])
 
   return (
-    <div className ="postContainer">
+    <div className ="postContainer" onClick={navigateToPost}>
       <div className = "imgContainer">
-        <img src={content} />
+        <img className = "img" src={content} />
       </div>
       <h1 className = "captionContainer">
         <strong>{user}:</strong> {caption}
       </h1>
-      
-      </div>
-  )
+    </div>
+  ) 
 }
 
 export default Post

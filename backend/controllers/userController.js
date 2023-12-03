@@ -49,8 +49,8 @@ const getUserByJWTToken = async (req, res) => {
 
 const getUserByID = async (req, res) => {
   try {
-    const { userID } = req.params;
-    const user = await User.findById(userID);
+    const { userId } = req.params;
+    const user = await User.findById(userId);
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });

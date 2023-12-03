@@ -22,14 +22,13 @@ const createPost = async (req, res) => {
       }
     }
     const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
-    console.log(response)
     const newPost = new Post({
       caption: caption,
       content: content,
       creator: userId,
       likes: {},
       comments: [],
-      recipe: response.data.choices[0].message.content  
+      recipe: response.data.choices[0].message.content
     });
     await newPost.save();
 
@@ -48,6 +47,17 @@ const getPosts = async (req, res) => {
   }
 }
 
+const getPostByID = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    console.log(postId)
+    const post = await Post.findById(postId);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 const getUserPost = async (req, res) => {
   try {
     const {userId } = req.params;
@@ -60,15 +70,17 @@ const getUserPost = async (req, res) => {
 
 const likePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const id = req.params.id;
     const userId = req.body.userId;
+    const post = await Post.findById(req.params.id);
+    const isLiked = post.likes.get(userId);
 
-    if (!post.likes[userId]) {
-      post.likes[userId] = true;
+    if (isLiked) {
+      post.likes.delete(userId);
     } else {
-      post.likes[userId] = !post.likes[userId];
+      post.likes.set(userId, true);
     }
-
+    
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
@@ -81,4 +93,4 @@ const likePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost };
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID };
