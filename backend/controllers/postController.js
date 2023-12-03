@@ -2,48 +2,49 @@ const { ObjectId } = require('mongoose').Types
 const Post = require('../models/postModel');
 const axios = require('axios');
 const dotenv = require('dotenv').config()
+const { spawn } = require('child_process');
 
 const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
-    const gptRequest = { 
-      "model": "gpt-3.5-turbo",
-        "messages": [
-          {
-              "role": "user",
-              "content": `In this caption, detect a food: "${caption}" and give me a recipe for it.`
-          }
-        ],
-      "temperature": 0.7
-    }
-    const header = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': process.env.GPT_KEY
-      }
-    }
     console.log("starting gpt call");
-    //const response = await axios.post('https://api.openai.com/v1/chat/completions', gptRequest, header)
-    const newPost = new Post({
-      caption: caption,
-      content: content,
-      creator: userId,
-      likes: {},
-      comments: [],
-      //recipe: response.data.choices[0].message.content
-      recipe: "will display recipe later"
+    const pythonProcess = spawn('python', ['backend/scripts/child_process.py', caption, process.env.GPT_KEY]);
+
+    let dataString = '';
+    pythonProcess.stdout.on('data', (data) => {
+      dataString = `${data}`
     });
-    console.log("done with gpt call");
-    const doc = await newPost.save();
 
-    const body = {
-      uid: userId,
-      pid: doc._id
-    }
-    const userResponse = await axios.post(`http://localhost:5000/api/user/createPostUser`, body);
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`Error from Python script: ${data}`);
+    });
+
+    pythonProcess.on('close', (code) => {
+      const post = async () => { 
+        const newPost = new Post({
+          caption: caption,
+          content: content,
+          creator: userId,
+          likes: {},
+          comments: [],
+          recipe: dataString
+        });
+        console.log("done with gpt call");
+        const doc = await newPost.save();
+    
+        const body = {
+          uid: userId,
+          pid: doc._id
+        }
+        const userResponse = await axios.post(`http://localhost:5000/api/user/createPostUser`, body);
+    
+        res.status(201).json(newPost);
+      }
+      post();
+    });
 
 
-    res.status(201).json(newPost);
+   
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
