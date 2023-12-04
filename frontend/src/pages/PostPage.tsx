@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import '../components/commonstyles.css'
+import '../components/postpagestyles.css'
+import Taskbar from '../components/Taskbar'
 
 interface User { 
     name: string
@@ -41,12 +44,22 @@ const PostPage = () => {
         
         }, [])
   return (
-    <div>
-
-    <img src={post?.content} />
-    <p> <strong>{user?.name}</strong> : {post?.caption} </p>
-    <p> {post?.recipe} </p>
-    
+    <div className = "pageContainer">
+        <Taskbar />
+        <div className = "postPageContainer">
+            <div className = "postPageLeft">
+                <div className = "postContainer2">
+                    <img src={post?.content} />
+                    <p> <strong>{user?.name}</strong> : {post?.caption} </p>
+                </div>
+            </div>
+            <div className = "postPageRight">
+                <p> {post?.recipe} </p>
+            </div>
+            <div className = "postPageRight2">
+                <p> {post?.recipe} </p>
+            </div>
+        </div>
     </div>
   )
 }

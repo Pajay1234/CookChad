@@ -8,7 +8,7 @@ const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
     console.log("starting gpt call");
-    const pythonProcess = spawn('python', ['backend/scripts/child_process.py', caption, process.env.GPT_KEY]);
+    const pythonProcess = spawn('python3', ['backend/scripts/child_process.py', caption, process.env.GPT_KEY]);
 
     let dataString = '';
     pythonProcess.stdout.on('data', (data) => {
