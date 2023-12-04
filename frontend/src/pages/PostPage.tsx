@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface User { 
     name: string
@@ -44,7 +45,7 @@ const PostPage = () => {
     <div>
 
     <img src={post?.content} />
-    <p> <strong>{user?.name}</strong> : {post?.caption} </p>
+    <p> <strong><Link to={`/user-profile/${user._id}`}>{user?.name}</Link></strong> : {post?.caption} </p>
     <p> {post?.recipe} </p>
     
     </div>

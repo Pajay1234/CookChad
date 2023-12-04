@@ -9,7 +9,8 @@ import Post from '../components/Post'
 const UserProfile = () => {
     const [posts, setPosts] = useState<any>([])
     const [userDetails, setUserDetails] = useState<any>({})
-    const { userID } = useParams();
+    const { userID } = useParams(); //id of current user profile
+    const [isSelf, setIsSelf] = useState(false)
 
     const navigate = useNavigate();
 
@@ -31,6 +32,12 @@ const UserProfile = () => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
+                    const currUser: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
+                    //console.log(currUser.data._id + "       " + userID);
+                    if (currUser.data._id === userID) {
+                        console.log("my profile");
+                        await setIsSelf(true);
+                    }
                     const response: any = await axios.get(`/api/user/getUser/${userID}`);
                     await setUserDetails(response.data);
                     const posts: any = await axios.post('/api/user/getUserPosts', { uid: userID});
@@ -70,6 +77,18 @@ const UserProfile = () => {
             <p>{userDetails.name}</p>
             <p>{userDetails.email}</p>
             
+            {
+                isSelf ? (
+                    <div>
+                        <p>friends</p>
+                        <p>liked posts</p>
+                        <p>delete posts</p>
+                        <p>edit posts</p>
+                    </div>
+                ) : (
+                    <p>add friend</p>
+                )
+            }
             
             <div className = "dashContainer">
         
