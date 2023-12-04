@@ -13,7 +13,7 @@
     height: 7%;
     width: 100%;
     background-color:  rgb(189, 92, 13);
-    font-size: 2vh;
+    font-size: 4.65vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +24,7 @@
 }
 
 .box{
-    background-color: rgb(129, 137, 139);
+    background-color: rgb(85, 42, 14);
     height: 7vh;
     width: 100%;
     margin-left: auto;
@@ -33,7 +33,7 @@
  }
 
  .innerBox{
-    background-color: rgb(84, 188, 214);
+    background-color: rgb(153, 74, 9);
     height: 90%;
     width: 100%;
     margin: auto;
@@ -41,7 +41,7 @@
  }
  
  .basicText{
-     background-color: rgb(84, 188, 214);
+     background-color: rgb(153, 74, 9);
      height: 100%;
      width: 25%;
   }

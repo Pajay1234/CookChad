@@ -54,7 +54,7 @@ const RegisterScreen = () => {
               <h1 className = "heading">Register Below</h1>
               <input type="text" className = "textBox" placeholder="name" onChange={(e) => setName(e.target.value)} />
               <input type="text" className = "textBox" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-              <input type="text" className = "textBox" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" className = "textBox" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
               <button type="submit" className = "registerButton" onClick={(e) => handleSubmit(e)}>Register</button>
             </div>
           </div>

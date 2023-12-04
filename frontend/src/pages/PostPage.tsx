@@ -49,15 +49,20 @@ const PostPage = () => {
         <div className = "postPageContainer">
             <div className = "postPageLeft">
                 <div className = "postContainer2">
-                    <img src={post?.content} />
+                    <img className = "imgContainer" src={post?.content} />
                     <p> <strong>{user?.name}</strong> : {post?.caption} </p>
                 </div>
             </div>
             <div className = "postPageRight">
-                <p> {post?.recipe} </p>
+                <div className = "recipeBox">
+                    <p className = "recipe"> {post?.recipe} </p>
+                </div>
+                <div className = "adjustRecipeMenu">
+
+                </div>
             </div>
-            <div className = "postPageRight2">
-                <p> {post?.recipe} </p>
+            <div className = "postPageFarRight">
+
             </div>
         </div>
     </div>
