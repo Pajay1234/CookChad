@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import '../components/createpoststyles.css'
+import '../components/commonstyles.css'
+import Taskbar from '../components/Taskbar'
 
 
 const CreatePost = () => {
@@ -52,12 +55,12 @@ const CreatePost = () => {
 
     }
     return (
-    <div className = 'createPostContainer'>
-        <input type="text" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>
+    <div className = 'pageContainer'>
+      <div className = "createPostContainer">
+        <textarea className = "inputBox" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>
         <input type="file" accept="image/jpeg" onChange={(e) => handleImageChange(e)} placeholder="Image" />   
         <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
-        
-
+      </div>
     </div>
     
     ) 
