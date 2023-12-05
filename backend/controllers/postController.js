@@ -8,7 +8,7 @@ const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
     console.log("starting gpt call");
-    const pythonProcess = spawn('python3', ['backend/scripts/child_process.py', caption, process.env.GPT_KEY]);
+    const pythonProcess = spawn('python', ['backend/scripts/child_process.py', caption, process.env.GPT_KEY]);
 
     let dataString = '';
     pythonProcess.stdout.on('data', (data) => {
@@ -41,15 +41,32 @@ const createPost = async (req, res) => {
         res.status(201).json(newPost);
       }
       post();
-    });
-
-
-   
+    });   
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
 }
 
+const getAdjustedRecipe = async (req, res) => { 
+  const { caption, value } = req.query;
+  console.log(caption)
+  const pythonProcess = spawn('python', ['backend/scripts/adjusted_recipe.py', caption, process.env.GPT_KEY, value]);
+
+  let dataString = '';
+  pythonProcess.stdout.on('data', (data) => {
+    dataString = `${data}`
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`Error from Python script: ${data}`);
+  });
+
+  pythonProcess.on('close', (code) => {
+    
+    res.status(200).json({result: dataString});
+  });  
+
+}
 const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
@@ -109,4 +126,4 @@ const likePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID };
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe };
