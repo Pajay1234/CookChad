@@ -10,6 +10,7 @@ const UserProfile = () => {
     const [posts, setPosts] = useState<any>([])
     const [userDetails, setUserDetails] = useState<any>({})
     const { userID } = useParams(); //id of current user profile
+    const [currUserID, setCurrUserID] = useState("");
     const [isSelf, setIsSelf] = useState(false)
 
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ const UserProfile = () => {
                 try {
                     const currUser: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
                     //console.log(currUser.data._id + "       " + userID);
+                    await setCurrUserID(currUser.data._id );
                     if (currUser.data._id === userID) {
                         console.log("my profile");
                         await setIsSelf(true);
@@ -93,7 +95,7 @@ const UserProfile = () => {
             <div className = "dashContainer">
         
                
-                {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} userId={post.creator}/>)
+                {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} likes={post.likes} comments = {post.comments} creatorId={post.creator} userId={currUserID}/>)
 
                 )}
             </div>

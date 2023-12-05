@@ -86,15 +86,24 @@ const getUserPost = async (req, res) => {
 
 const likePost = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.postId;
     const userId = req.body.userId;
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(id);
     const isLiked = post.likes.get(userId);
 
+    const body = {
+      userId: userId,
+      postId: id
+    }
+    let userResponse = {};
     if (isLiked) {
       post.likes.delete(userId);
+      userResponse = await axios.post(`http://localhost:5000/api/user/removeFromLiked`, body);
+      
     } else {
       post.likes.set(userId, true);
+      userResponse = await axios.post(`http://localhost:5000/api/user/addToLiked`, body);
+      
     }
     
     const updatedPost = await Post.findByIdAndUpdate(
@@ -102,6 +111,7 @@ const likePost = async (req, res) => {
       { likes: post.likes },
       { new: true }
     )
+   
 
     res.status(200).json(updatedPost);
   } catch (error) {

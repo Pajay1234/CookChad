@@ -87,6 +87,29 @@ const getUserPosts = async (req, res) => {
   }
 }
 
+const addToLiked = async (req, res) => {
+  try {
+    
+    const uid = req.body.userId;
+    const pid = req.body.postId;
+    const doc = await User.updateOne({_id: new ObjectId(uid)}, { $push: { likedPosts: `${pid}`} });
+    
+    res.status(200).json({msg : 1});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+const removeFromLiked = async (req, res) => {
+  try {
+    const uid = req.body.userId;
+    const pid = req.body.postId;
+    const doc = await User.updateOne({_id: new ObjectId(uid)}, { $pull: { likedPosts: `${pid}`} });
+    res.status(200).json({msg : 1});
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
 
 // not completed
 const getUserFriends = async (req, res) => {
@@ -102,4 +125,4 @@ const getUserFriends = async (req, res) => {
   }
 }
 
-module.exports = { setUser, getUserTokenByLogin, getUserByJWTToken, getUserByID, getUserFriends, createPostUser, getUserPosts };
+module.exports = { setUser, getUserTokenByLogin, getUserByJWTToken, getUserByID, getUserFriends, createPostUser, getUserPosts, addToLiked, removeFromLiked};
