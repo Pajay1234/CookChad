@@ -26,6 +26,7 @@ const PostPage = () => {
     const [recipe, setRecipe] = useState<string>('')
     const [recipeResponse, setRecipeResponse] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    
 
     const onSubmitAdjustedRecipe = (e: React.ChangeEvent<HTMLSelectElement>) => { 
         e.preventDefault();

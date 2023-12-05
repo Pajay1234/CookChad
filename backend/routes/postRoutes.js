@@ -7,5 +7,6 @@ router.post('/getPosts', postController.getPosts)
 router.get('/getPost/:postId', postController.getPostByID)
 router.get('/getUserPost/:userID', postController.getUserPost)
 router.get('/getRecipe', postController.getAdjustedRecipe)
-
+router.delete('/delete/:postId', postController.deletePost)
+router.patch('/like/:postId', postController.likePost)
 module.exports = router

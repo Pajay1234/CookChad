@@ -43,12 +43,23 @@ const DashboardScreen = () => {
   
 
   return (
-    <div className = "pageContainer">
-      <Taskbar />
-      <div className = "dashContainer">
-        {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} userId={post.creator} />))}
-      </div>
+    <div className="pageContainer">
+    <Taskbar />
+    <div className="dashContainer">
+      {posts.map((post: any) => (
+        <Post 
+          key={post._id} 
+          postId={post._id} 
+          caption={post.caption}
+          content={post.content} 
+          userId={post.creator} 
+          likes={post.likes}
+          comments={post.comments}
+          tags={post.tags}
+        />
+      ))}
     </div>
+  </div>
   )
 
  

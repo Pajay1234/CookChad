@@ -103,9 +103,9 @@ const getUserPost = async (req, res) => {
 
 const likePost = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.postId;
     const userId = req.body.userId;
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(id);
     const isLiked = post.likes.get(userId);
 
     if (isLiked) {
@@ -113,7 +113,7 @@ const likePost = async (req, res) => {
     } else {
       post.likes.set(userId, true);
     }
-    
+
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
@@ -126,4 +126,18 @@ const likePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe };
+const deletePost = async (req, res) => {
+  try {
+    const id = req.params.postId;
+    const deletedPost = await Post.findByIdAndDelete(id);
+    console.log(id)
+    if (!deletedPost) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.status(200).json({ message: "Post deleted successfully." });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe, deletePost };
