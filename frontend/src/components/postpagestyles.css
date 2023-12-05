@@ -1,0 +1,78 @@
+.postPageContainer{
+    height: 93vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.postPageLeft{
+    width: 35%;
+    height: 100%;
+    max-width: 70%;
+    background-color: rgb(240, 148, 73);
+    display: flex;
+    flex-direction: column;
+    display: grid;
+    place-items: center;
+}
+
+.postPageRight{
+    font-size: 1vw;
+    width: 35%;
+    height: 100%;
+    background-color: rgb(240, 148, 73);
+    display: grid;
+    place-items: center;
+    grid-template-columns: auto;
+    padding-left:3vw;
+    padding-right:33vw;
+    padding-bottom:34vh;
+    
+}
+
+.postPageFarRight{
+    font-size: 1vw;
+    width: 30%;
+    height: 100%;
+    background-color: rgb(240, 148, 73);
+    display: grid;
+    place-items: center;
+}
+
+.recipeBox{
+    margin-top: 2vh;
+    font-size: 1vw;
+    width: 30vw;
+    height: 55vh;
+    
+    border: solid;
+    border-width: .2vh;
+    background-color: rgb(255, 255, 255);
+    overflow: scroll;
+    box-shadow: 0px 0px 9px 12px rgba(0, 0, 0, 0.2);
+}
+
+.adjustRecipeMenu{
+    font-size: 1vw;
+    width: 30vw;
+    height: 30vh;
+    background-color: rgb(240, 148, 73);
+    margin-top: 4vh;
+}
+
+.postContainer2 { 
+    width: 30vw;
+    height: 90vh;
+    padding: 1%;
+    margin: 0.5%;
+    border: solid;
+    border-width: 0.1vw;
+    border-radius: 0.8vw;
+    font-size: 2vh;
+    background-color: rgb(231, 222, 222);
+    box-shadow: 0px 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.adjustRecipeLabel {
+    color: white
+}

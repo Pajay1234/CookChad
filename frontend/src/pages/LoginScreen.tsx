@@ -60,7 +60,7 @@ const LoginScreen = () => {
             <div className = 'innerLoginBox'>
               <h1 className = "heading">What are you waiting for?</h1>
               <input type="text" className = "textBox" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-              <input type="text" className = "textBox" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" className = "textBox" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
               <p className = "heading2"> Don't have an account? <a href ="/register" className = "hyperlinkColor" >Register now</a></p>
               <button type="submit" className = "loginButton" onClick={(e) => handleSubmit(e)}>Log In</button>
               {wrongCredentialBool === true ? (<p>Email or password is wrong.</p>) : (<p></p>)}

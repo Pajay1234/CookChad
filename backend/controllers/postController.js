@@ -41,15 +41,32 @@ const createPost = async (req, res) => {
         res.status(201).json(newPost);
       }
       post();
-    });
-
-
-   
+    });   
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
 }
 
+const getAdjustedRecipe = async (req, res) => { 
+  const { caption, value } = req.query;
+  console.log(caption)
+  const pythonProcess = spawn('python', ['backend/scripts/adjusted_recipe.py', caption, process.env.GPT_KEY, value]);
+
+  let dataString = '';
+  pythonProcess.stdout.on('data', (data) => {
+    dataString = `${data}`
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`Error from Python script: ${data}`);
+  });
+
+  pythonProcess.on('close', (code) => {
+    
+    res.status(200).json({result: dataString});
+  });  
+
+}
 const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
@@ -86,9 +103,9 @@ const getUserPost = async (req, res) => {
 
 const likePost = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.params.postId;
     const userId = req.body.userId;
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(id);
     const isLiked = post.likes.get(userId);
 
     if (isLiked) {
@@ -96,7 +113,7 @@ const likePost = async (req, res) => {
     } else {
       post.likes.set(userId, true);
     }
-    
+
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
@@ -109,4 +126,18 @@ const likePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID };
+const deletePost = async (req, res) => {
+  try {
+    const id = req.params.postId;
+    const deletedPost = await Post.findByIdAndDelete(id);
+    console.log(id)
+    if (!deletedPost) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.status(200).json({ message: "Post deleted successfully." });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe, deletePost };
