@@ -2,7 +2,7 @@
 
 .loginContainer{
     width: 100vw;
-    height: 93vh;
+    height: 100vh;
     background-color: rgb(240, 148, 73);
     display: flex;
     flex-direction: row;
@@ -56,6 +56,13 @@
     font-size: 2.5vh;
     padding: 0.35em;
     padding-left:0.5em;
+}
+
+.heading3{
+    font-size: 2.5vh;
+    padding: 0.35em;
+    padding-left:0.5em;
+    color:red;
 }
 
 .textBox{

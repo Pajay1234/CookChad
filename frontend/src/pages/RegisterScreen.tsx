@@ -60,9 +60,6 @@ const RegisterScreen = () => {
           </div>
         </div>
       </div>
-      <div className = 'footer'>
-        Footer including about page, ect.
-      </div>
     </div>
   )
 

@@ -9,4 +9,6 @@ router.get('/getUserPost/:userID', postController.getUserPost)
 router.get('/getRecipe', postController.getAdjustedRecipe)
 router.delete('/delete/:postId', postController.deletePost)
 router.patch('/like/:postId', postController.likePost)
+router.patch('/createComment', postController.createComment)
+router.get('/fetchComments/:postId', postController.fetchComments)
 module.exports = router

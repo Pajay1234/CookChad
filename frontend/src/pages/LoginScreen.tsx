@@ -63,13 +63,10 @@ const LoginScreen = () => {
               <input type="password" className = "textBox" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
               <p className = "heading2"> Don't have an account? <a href ="/register" className = "hyperlinkColor" >Register now</a></p>
               <button type="submit" className = "loginButton" onClick={(e) => handleSubmit(e)}>Log In</button>
-              {wrongCredentialBool === true ? (<p>Email or password is wrong.</p>) : (<p></p>)}
+              {wrongCredentialBool === true ? (<p className = "heading3">Email or password is wrong!</p>) : (<p></p>)}
             </div>
           </div>
         </div>
-      </div>
-      <div className = 'footer'>
-        Footer including about page, ect.
       </div>
     </div>
   )
