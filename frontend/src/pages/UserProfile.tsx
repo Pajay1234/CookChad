@@ -6,6 +6,7 @@ import Post from '../components/Post'
 import AddFriend from '../assets/icons/addfriend.png'
 import Taskbar from '../components/Taskbar';
 import AddedFriend from '../assets/icons/added.png'
+import '../components/commonstyles.css'
 
 
 

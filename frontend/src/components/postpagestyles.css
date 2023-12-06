@@ -17,6 +17,12 @@
     flex-direction: column;
     display: grid;
     place-items: center;
+    padding-bottom: 5vh;
+}
+
+.commentButton{
+    color:black;
+    font-weight: 800;
 }
 
 .postPageRight{
@@ -28,8 +34,9 @@
     place-items: center;
     grid-template-columns: auto;
     padding-left:3vw;
-    padding-right:33vw;
-    padding-bottom:34vh;
+    padding-right:34vw;
+    padding-bottom:35vh;
+    padding-top: 2.5vh;
     
 }
 
@@ -40,6 +47,8 @@
     background-color: rgb(240, 148, 73);
     display: grid;
     place-items: center;
+    padding-bottom: 15vh;
+    gap:0vh;
 }
 
 .recipeBox{
@@ -64,8 +73,8 @@
 }
 
 .postContainer2 { 
-    width: 30vw;
-    height: 90vh;
+    width: 27vw;
+    height: 80vh;
     padding: 1%;
     margin: 0.5%;
     border: solid;
@@ -77,20 +86,31 @@
 }
 
 .adjustRecipeLabel {
-    color: white
+    color:black;
+    font-weight: 800;
 }
 
+.commentBox{
+    margin-top:3vh;
+    width: 25vw;
+    height: 15vh;
+    border: solid;
+    border-width: 0.1vw;
+    box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 .commentDisplayBox{
-    margin-top: 2vh;
+    margin-top: 4.5vh;
     font-size: 1vw;
-    width: 30vw;
+    width: 25vw;
     height: 55vh;
     
     border: solid;
     border-width: .2vh;
     background-color: rgb(255, 255, 255);
     overflow: scroll;
-    box-shadow: 0px 0px 9px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 9px 10px rgba(0, 0, 0, 0.2);
 
     display: flex;
     flex-direction: column;
@@ -98,4 +118,9 @@
     align-items: flex-start;
     text-align: left;
     padding: 1vh;
+}
+
+.buttonText{
+    color:white;
+    font-style:bold;
 }

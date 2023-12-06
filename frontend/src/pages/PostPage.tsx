@@ -123,7 +123,7 @@ const PostPage = () => {
                      <p key={index}><strong>{comment.name}</strong> - {comment.comment}</p>
                     ))}
                 </div>  
-                <input className = "commentBox" placeholder = "Add a comment..." onChange={(e) => setComment(e.target.value)}></input>
+                <textarea className = "commentBox" placeholder = "Add a comment..." onChange={(e) => setComment(e.target.value)}></textarea>
                 <button className = "commentButton" onClick={onSubmitComment}>Comment</button>
             </div>
         </div>
