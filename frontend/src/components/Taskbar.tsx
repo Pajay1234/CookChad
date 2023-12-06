@@ -28,12 +28,14 @@ const Taskbar = () => {
     }
     
     return (
-        <div className="box">
-            <div className="innerBox">
-                <div className="basicText"></div>
-                <input className="input" placeholder="Search..." />
-                <button onClick={(e) => handleSubmit(e)}>logout</button>
-                <button onClick={createPost}>create post</button>
+        <div className="taskBar">
+            <div className="innerTaskBar">
+                <div className = "taskBarLeft">
+                    <button onClick={createPost}>create post</button>
+                </div>
+                <div className = "taskBarRight">
+                    <button onClick={(e) => handleSubmit(e)}>logout</button>
+                </div>
             </div>
         </div>
     )

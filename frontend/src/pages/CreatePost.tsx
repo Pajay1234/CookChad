@@ -56,6 +56,7 @@ const CreatePost = () => {
     }
     return (
     <div className = 'pageContainer'>
+      <Taskbar />
       <div className = "createPostContainer">
         <textarea className = "inputBox" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>
         <input type="file" accept="image/jpeg" onChange={(e) => handleImageChange(e)} placeholder="Image" />   

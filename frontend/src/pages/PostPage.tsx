@@ -114,7 +114,7 @@ const PostPage = () => {
                 </div>
             </div>
             <div className = "postPageFarRight">
-                    <div className = "commentDisplayBox">
+                <div className = "commentDisplayBox">
                     {commentsDisplayed.map((comment: any, index: number) => (
                      <p key={index}><strong>{comment.name}</strong> - {comment.comment}</p>
                     ))}
