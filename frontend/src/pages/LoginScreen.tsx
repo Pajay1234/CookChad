@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { useNavigate, Link } from 'react-router-dom'
 import '../components/loginstyles.css'
 import '../components/commonstyles.css'
+import Logo from '../assets/icons/logo.png'
 
 
 const LoginScreen = () => {
@@ -52,7 +53,7 @@ const LoginScreen = () => {
             Join the Foodment.
           </h1>
           <h1 className = 'leftText2'>
-            [insert image]
+            <img src={Logo} />
           </h1>
         </div>
         <div className = 'loginRight'>

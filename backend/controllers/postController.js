@@ -139,6 +139,8 @@ const likePost = async (req, res) => {
 const deletePost = async (req, res) => {
   try {
     const id = req.params.postId;
+    const userId = req.body.userId;
+
     const deletedPost = await Post.findByIdAndDelete(id);
     console.log(id)
     if (!deletedPost) {

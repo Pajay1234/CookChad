@@ -22,7 +22,8 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
   const [user, setUser] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
-  const [isLiked, setIsLiked] = useState(Boolean(likes[creatorId])); 
+  const isYourPost = userId == creatorId;
+  const [isLiked, setIsLiked] = useState(Boolean(likes[userId])); 
   const navigate = useNavigate();
 
   const navigateToPost = () => {
@@ -60,7 +61,6 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
     } catch (error) {
       console.log(error);
     }
-
   }
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
               <div className="absolute bg-white border rounded-md shadow-md">
                 <div className="flex flex-col">
                   <div className="p-2 hover:bg-gray-100 cursor-pointer">Edit</div>
-                  <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div>
+                  {isYourPost && <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div> }
                   <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={navigateToPost}>Navigate To Post</div>
                 </div>
               </div>
