@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../components/commonstyles.css'
 import '../components/postpagestyles.css'
@@ -30,6 +30,7 @@ const PostPage = () => {
     const [comment, setComment] = useState('')
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const[commentsDisplayed, setCommentsDisplayed] = useState<any>([])
+    const [userId, setUserId] = useState('')
     
 
     const onSubmitAdjustedRecipe = (e: React.ChangeEvent<HTMLSelectElement>) => { 
@@ -41,6 +42,8 @@ const PostPage = () => {
     const onSubmitComment = async (e: React.MouseEvent<HTMLButtonElement>) =>  {
         try {
             e.preventDefault();
+            const token = localStorage.getItem('token');
+            const userResponse: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
             const response = await axios.patch('/api/post/createComment', { pid: postId, comment: comment, uid: currentUser!._id, name: currentUser!.name})
             const comments = await axios.get(`/api/post/fetchComments/${post._id}`)
             setCommentsDisplayed(comments.data.comments)
@@ -57,6 +60,7 @@ const PostPage = () => {
                 const token = localStorage.getItem('token')
                 const currentUser = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token })
                 setCurrentUser(currentUser.data)
+                await setUserId(currentUser.data._id);
                 const postResponse = await axios.get(`/api/post/getPost/${postId}`)
                 setPost(postResponse.data);
                 setRecipeResponse(postResponse.data.recipe)
@@ -91,12 +95,12 @@ const PostPage = () => {
     
   return (
     <div className = "pageContainer">
-        <Taskbar />
+        <Taskbar userID={userId}/>
         <div className = "postPageContainer">
             <div className = "postPageLeft">
                 <div className = "postContainer2">
                     <img className = "imgContainer" src={post?.content} />
-                    <p> <strong>{user?.name}</strong> : {post?.caption} </p>
+                    <p> <strong><Link to={`/user-profile/${user._id}`}>{user?.name}</Link></strong> : {post?.caption} </p>
                 </div>
             </div>
             <div className = "postPageRight">

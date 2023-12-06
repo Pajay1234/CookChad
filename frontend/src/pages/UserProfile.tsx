@@ -9,7 +9,9 @@ import Post from '../components/Post'
 const UserProfile = () => {
     const [posts, setPosts] = useState<any>([])
     const [userDetails, setUserDetails] = useState<any>({})
-    const { userID } = useParams();
+    const { userID } = useParams(); //id of current user profile
+    const [currUserID, setCurrUserID] = useState("");
+    const [isSelf, setIsSelf] = useState(false)
 
     const navigate = useNavigate();
 
@@ -31,14 +33,20 @@ const UserProfile = () => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
+                    const currUser: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
+                    console.log(currUser.data._id + "       " + userID);
+                    await setCurrUserID(currUser.data._id );
+                    if (currUser.data._id === userID) {
+                        console.log("my profile");
+                        await setIsSelf(true);
+                    }
                     const response: any = await axios.get(`/api/user/getUser/${userID}`);
                     await setUserDetails(response.data);
                     const posts: any = await axios.post('/api/user/getUserPosts', { uid: userID});
+                    console.log(posts)
                     await setPosts(posts.data);
-                    /*
-                    check if user can access friends, log out, edit posts, etc. 
-                    check if param user id and userID based on token match
-                    */
+                    
+                    
                 } catch (error: any) {
                     console.log(error);
                 }
@@ -70,11 +78,23 @@ const UserProfile = () => {
             <p>{userDetails.name}</p>
             <p>{userDetails.email}</p>
             
+            {
+                isSelf ? (
+                    <div>
+                        <p>friends</p>
+                        <p>liked posts</p>
+                        <p>delete posts</p>
+                        <p>edit posts</p>
+                    </div>
+                ) : (
+                    <p>add friend</p>
+                )
+            }
             
             <div className = "dashContainer">
         
                
-                {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} userId={post.creator}/>)
+                {posts.map((post: any) => (<Post key={post._id} postId={post._id} caption={post.caption} content={post.content} likes={post.likes} comments = {post.comments} creatorId={post.creator} userId={currUserID}/>)
 
                 )}
             </div>

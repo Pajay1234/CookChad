@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     password: { type: String, required: true, min: 5 },
     friends: { type: Array, default: [] }, 
     post: { type: Array, default: [] },
+    likedPosts: { type: Array, default: []}
 }, {
     timestamps: true
 })

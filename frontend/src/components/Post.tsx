@@ -13,15 +13,16 @@ interface PostProps {
   tags?: string[],
   likes?: Map<string, boolean> | any,
   comments?: Array<string>,
-  userId: string
+  userId: string,
+  creatorId: string
 }
 
-const Post = ({ postId, caption, content, userId, tags, likes, comments }: PostProps) => {
+const Post = ({ postId, caption, content, userId, tags, likes, comments, creatorId }: PostProps) => {
 
   const [user, setUser] = useState("");
   const [showOptions, setShowOptions] = useState(false);
-  const likeCount = Object.keys(likes).length;
-  const isLiked = Boolean(likes[userId]);
+  const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
+  const [isLiked, setIsLiked] = useState(Boolean(likes[creatorId])); 
   const navigate = useNavigate();
 
   const navigateToPost = () => {
@@ -49,7 +50,13 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments }: PostP
       console.log("Liking post...");
       const response = await axios.patch(`/api/post/like/${postId}`, { userId: userId });
       console.log(response);
-      window.location.reload();
+      await setIsLiked(!isLiked);
+      if (isLiked) {
+        await setLikeCount(likeCount - 1);
+      }
+      else {
+        await setLikeCount(likeCount + 1);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +66,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments }: PostP
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response: any = await axios.get(`/api/user/getUser/${userId}`);
+        const response: any = await axios.get(`/api/user/getUser/${creatorId}`);
         setUser(response.data.name);
       };
       fetchData();

@@ -10,6 +10,7 @@ const CreatePost = () => {
     const [caption, setCaption] = useState('')
     const [image, setImage] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [userId, setUserId] = useState('')
 
     const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const CreatePost = () => {
         try { 
           const token = localStorage.getItem('token')
           const userResponse: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
-
+          setUserId(userResponse.data._id);
           const post = {
             caption: caption, 
             content: image,
@@ -56,7 +57,7 @@ const CreatePost = () => {
     }
     return (
     <div className = 'pageContainer'>
-      <Taskbar />
+      <Taskbar userID={userId}/>
       <div className = "createPostContainer">
         <textarea className = "inputBox" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>
         <input type="file" accept="image/jpeg" onChange={(e) => handleImageChange(e)} placeholder="Image" />   
