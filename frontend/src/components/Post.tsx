@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../components/poststyles.css'
 import LikeIcon from '../assets/icons/like.png'
 import LikedIcon from '../assets/icons/liked.png'
@@ -81,7 +81,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
         <img className="img" src={content} />
       </div>
       <h1 className="captionContainer">
-        <strong>{user}:</strong> {caption}
+        <strong><Link to={`/user-profile/${creatorId}`}>{user}</Link>:</strong> {caption}
       </h1>
       <div>
         <div className="flex">
