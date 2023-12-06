@@ -1,3 +1,5 @@
 APIkeys/
 
 .env
+
+frontend/node_modules
