@@ -45,7 +45,7 @@ const getUserByJWTToken = async (req, res) => {
     const userID = jwt.decode(JWTToken);
     const user = await User.findOne({ _id: userID.id }, {name: 1, email: 1});
     res.status(200).json(user);
-  } catch (error) {
+  } catch (error) {  
     res.status(404).json({ message: error.message });
   } 
 }

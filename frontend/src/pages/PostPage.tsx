@@ -7,6 +7,7 @@ import Taskbar from '../components/Taskbar'
 
 interface User { 
     name: string
+    _id: string
 }
 
 /*
@@ -26,6 +27,9 @@ const PostPage = () => {
     const [recipe, setRecipe] = useState<string>('')
     const [recipeResponse, setRecipeResponse] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [comment, setComment] = useState('')
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const[commentsDisplayed, setCommentsDisplayed] = useState<any>([])
     
 
     const onSubmitAdjustedRecipe = (e: React.ChangeEvent<HTMLSelectElement>) => { 
@@ -34,14 +38,33 @@ const PostPage = () => {
        
     }
 
+    const onSubmitComment = async (e: React.MouseEvent<HTMLButtonElement>) =>  {
+        try {
+            e.preventDefault();
+            const response = await axios.patch('/api/post/createComment', { pid: postId, comment: comment, uid: currentUser!._id, name: currentUser!.name})
+            const comments = await axios.get(`/api/post/fetchComments/${post._id}`)
+            setCommentsDisplayed(comments.data.comments)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }   
+
     useEffect(() => {    
         const getData = async () => {
             try {
-                const post = await axios.get(`/api/post/getPost/${postId}`)
-                setPost(post.data);
-                const user = await axios.get(`/api/user/getUser/${post?.data.creator}`)
+
+                const token = localStorage.getItem('token')
+                const currentUser = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token })
+                setCurrentUser(currentUser.data)
+                const postResponse = await axios.get(`/api/post/getPost/${postId}`)
+                setPost(postResponse.data);
+                setRecipeResponse(postResponse.data.recipe)
+                const user = await axios.get(`/api/user/getUser/${postResponse?.data.creator}`)
                 setUser(user.data)
-                setRecipeResponse(post.data.recipe)
+                const comments = await axios.get(`/api/post/fetchComments/${postResponse?.data._id}`)
+                setCommentsDisplayed(comments.data.comments)
+               
             }
             catch (error) {
                 console.log(error)
@@ -91,7 +114,13 @@ const PostPage = () => {
                 </div>
             </div>
             <div className = "postPageFarRight">
-
+                    <div className = "commentDisplayBox">
+                    {commentsDisplayed.map((comment: any, index: number) => (
+                     <p key={index}><strong>{comment.name}</strong> - {comment.comment}</p>
+                    ))}
+                </div>  
+                <input className = "commentBox" placeholder = "Add a comment..." onChange={(e) => setComment(e.target.value)}></input>
+                <button className = "commentButton" onClick={onSubmitComment}>Comment</button>
             </div>
         </div>
     </div>

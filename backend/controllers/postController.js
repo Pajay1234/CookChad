@@ -140,4 +140,26 @@ const deletePost = async (req, res) => {
   }
 }
 
-module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe, deletePost };
+
+const createComment = async (req, res) => {
+  try {
+    const response = await Post.updateOne({_id: new ObjectId(req.body.pid)}, {$push: {  comments: {uid: new ObjectId(req.body.uid), name: req.body.name, comment: req.body.comment}}});
+    if (!response) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    res.status(200).json({ message: "Comment added successfully." });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+const fetchComments = async (req, res) => {
+  try {
+    const response = await Post.findOne({_id: new ObjectId(req.params.postId)}, {comments: 1});
+    res.status(200).json(response);
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+module.exports = { createPost, getPosts, getUserPost, likePost, getPostByID, getAdjustedRecipe, deletePost, createComment, fetchComments };
