@@ -10,6 +10,7 @@ interface TaskbarProps {
 
 const Taskbar = ({ userID }: TaskbarProps) => {
     const navigate = useNavigate()
+    console.log("from taskbar:" + userID);
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -42,7 +43,7 @@ const Taskbar = ({ userID }: TaskbarProps) => {
             <div className="mr-auto">
                 <Link to='/dashboard'><img src={Logo} alt="logo" className="w-20 h-20" /></Link>
             </div>
-            <div className="flex gap-8 text-gray-200">
+            <div className="flex gap-8 text-gray-200 text-md">
                 <Link to='/create-post' className="hover:underline hover:underline-offset-4">Create Post</Link>
                 <Link to={`/user-profile/${userID}`} className="hover:underline hover:underline-offset-4">Profile</Link>
                 <button onClick={(e) => handleSubmit(e)} className="hover:underline hover:underline-offset-4">Logout</button>

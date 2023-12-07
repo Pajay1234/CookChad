@@ -46,8 +46,7 @@ const DashboardScreen = () => {
 
 
   return (
-    <div className="pageContainer">
-      <Taskbar userID={userId} />
+    <div><Taskbar userID={userId} /> <div className="pageContainer">
       <div className="dashContainer">
         {posts.map((post: any) => (
           <Post
@@ -62,7 +61,7 @@ const DashboardScreen = () => {
           />
         ))}
       </div>
-    </div>
+    </div></div>
   )
 
 

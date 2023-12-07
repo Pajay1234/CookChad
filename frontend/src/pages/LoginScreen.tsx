@@ -53,7 +53,7 @@ const LoginScreen = () => {
             Join the Foodment.
           </h1>
           <h1 className = 'leftText2'>
-            <img src={Logo} />
+            <img src={Logo} className ="w-40.5 h-40.5"/>
           </h1>
         </div>
         <div className = 'loginRight'>

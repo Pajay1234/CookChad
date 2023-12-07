@@ -97,7 +97,6 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
             {showOptions && (
               <div className="absolute bg-white border rounded-md shadow-md">
                 <div className="flex flex-col">
-                  <div className="p-2 hover:bg-gray-100 cursor-pointer">Edit</div>
                   {isYourPost && <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div> }
                   <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={navigateToPost}>Navigate To Post</div>
                 </div>

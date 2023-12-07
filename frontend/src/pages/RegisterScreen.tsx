@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { useNavigate } from 'react-router-dom'
 import '../components/registerstyles.css'
 import '../components/commonstyles.css'
+import Logo from '../assets/icons/logo.png'
 
 
 const RegisterScreen = () => {
@@ -45,7 +46,7 @@ const RegisterScreen = () => {
             Free to Register!
           </h1>
           <h1 className = 'leftText2'>
-            [insert image]
+            <img src={Logo} className ="w-40.5 h-40.5"/>
           </h1>
         </div>
         <div className = "registerRight">

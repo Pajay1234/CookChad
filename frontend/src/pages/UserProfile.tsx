@@ -6,6 +6,7 @@ import Post from '../components/Post'
 import AddFriend from '../assets/icons/addfriend.png'
 import Taskbar from '../components/Taskbar';
 import AddedFriend from '../assets/icons/added.png'
+import '../components/commonstyles.css'
 
 
 
@@ -130,39 +131,33 @@ const UserProfile = () => {
     }
 
     return (
-        <div className='flex flex-col gap-2'>
+        <div className = ""><div className='flex flex-col gap-2'>
             <Taskbar userID={currUserID} />
             <div className="flex flex-col py-2 px-16 justify-center gap-2">
                 <div className="flex gap-16">
                     <p className="text-2xl font-bold">{userDetails.name}</p>
-                    {
-                        isSelf ? (
-                            <div>
-                                <p>friends</p>
-                                <p>liked posts</p>
-                                <p>delete posts</p>
-                                <p>edit posts</p>
-                            </div>
-                        ) : (
-                            <div className="flex gap-8">
-                                {isMyFriend ? (
-                                    <div className="bg-emerald-300 py-2 px-3 rounded-sm flex gap-2 justify-center items-center hover:bg-emerald-400 font-semibold" onClick={handleAddFriend}>
-                                        <p>Following</p>
-                                        <img src={AddedFriend} alt="add friend" className='w-5 h-5' />
-                                    </div>
-                                ) : (
-                                    <div className=" bg-cyan-300 py-2 px-3 rounded-sm flex gap-2 justify-center items-center hover:bg-cyan-400 font-semibold" onClick={handleAddFriend}>
-                                        <p>Follow</p>
-                                        <img src={AddFriend} alt="add friend" className='w-5 h-5' />
-                                    </div>
-                                )}
-                                <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Posts')}>Posts</p>
-                                <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Liked Posts')}>Liked Posts</p>
-                                <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Followers')}>Followers</p>
-                                <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Following')}>Following</p>
-                            </div>
-                        )
-                    }
+
+                    <div className="flex gap-8">
+                        {isSelf ? null :
+                            (isMyFriend ? (
+                                <div className="bg-emerald-300 py-2 px-3 rounded-sm flex gap-2 justify-center items-center hover:bg-emerald-400 font-semibold" onClick={handleAddFriend}>
+                                    <p>Following</p>
+                                    <img src={AddedFriend} alt="add friend" className='w-5 h-5' />
+                                </div>
+                            ) : (
+                                <div className=" bg-cyan-300 py-2 px-3 rounded-sm flex gap-2 justify-center items-center hover:bg-cyan-400 font-semibold" onClick={handleAddFriend}>
+                                    <p>Follow</p>
+                                    <img src={AddFriend} alt="add friend" className='w-5 h-5' />
+                                </div>
+                            ))
+                        }
+                        <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Posts')}>Posts</p>
+                        <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Liked Posts')}>Liked Posts</p>
+                        <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Followers')}>Followers</p>
+                        <p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold" onClick={(e) => handleToggle(e, 'Following')}>Following</p>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -235,6 +230,7 @@ const UserProfile = () => {
                                 <Link to={`/user-profile/${follow._id}`}>
                                     <p className="font-semibold">{follow.name}</p>
                                 </Link>
+                                <Link to={`/user-profile/${follow._id}`}><p className="bg-gray-200 py-2 px-3 rounded-sm hover:bg-gray-300 font-semibold">Profile</p></Link>
                             </div>
                         ))
                     ) : (
@@ -247,7 +243,7 @@ const UserProfile = () => {
 
 
 
-        </div>
+        </div></div>
 
     )
 

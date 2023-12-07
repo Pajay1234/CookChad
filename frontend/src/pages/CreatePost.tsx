@@ -11,13 +11,35 @@ const CreatePost = () => {
     const [image, setImage] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [userId, setUserId] = useState('')
+    const [submitState, setSubmitState] = useState('submit')
+    const [submitEnabled, setSubmitEnabled] = useState(true)
 
     const navigate = useNavigate();
 
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          try {
+            const response: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
+            setUserId(response.data._id);
+          } catch (error: any) {
+            console.log(error)
+          }
+        }
+        else {
+          console.log(token)
+        }
+      };
+  
+      fetchData();
+    }, []);
+
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-    
         try { 
+          setSubmitEnabled(false);
           const token = localStorage.getItem('token')
           const userResponse: any = await axios.post('/api/user/getUserByJWTToken', { JWTToken: token });
           setUserId(userResponse.data._id);
@@ -30,7 +52,9 @@ const CreatePost = () => {
           setIsSubmitting(true);
           console.log("clicky");
           if (!isSubmitting) {
+            await setSubmitState('submitting...');
             response = await axios.post('/api/post/createPost', post);
+            console.log("sent");
           }
           if (response) navigate('/dashboard')
           console.log(response);
@@ -38,6 +62,9 @@ const CreatePost = () => {
         catch (error) {
           console.log(error);
         }
+        setSubmitEnabled(true);
+        await setSubmitState('submit');
+      
     }
 
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {  
@@ -56,14 +83,14 @@ const CreatePost = () => {
 
     }
     return (
-    <div className = 'pageContainer'>
-      <Taskbar userID={userId}/>
+    <div><Taskbar userID={userId}/><div className = 'pageContainer'>
       <div className = "createPostContainer">
+        <h1 className = 'leftText2'> Create Post</h1>
         <textarea className = "inputBox" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>
         <input type="file" accept="image/jpeg" onChange={(e) => handleImageChange(e)} placeholder="Image" />   
-        <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+        <button className = "submitButton" disabled={!submitEnabled} type="submit" onClick={(e) => handleSubmit(e)}>{submitState}</button>
       </div>
-    </div>
+    </div></div>
     
     ) 
  
