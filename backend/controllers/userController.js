@@ -109,6 +109,8 @@ const addToLiked = async (req, res) => {
   }
 }
 
+
+// remove from list of likes
 const removeFromLiked = async (req, res) => {
   try {
     const uid = req.body.userId;
@@ -121,7 +123,7 @@ const removeFromLiked = async (req, res) => {
 }
 
 
-// not completed
+// get user friends
 const getUserFriends = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,6 +137,7 @@ const getUserFriends = async (req, res) => {
   }
 }
 
+// when unfollowing or following, remove or push to following / followers 
 const addRemoveFriend = async (req, res) => {
   try {
     const id = req.params.currUserId;
