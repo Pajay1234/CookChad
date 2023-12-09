@@ -1,6 +1,7 @@
 .dashContainer { 
     width: 100%;
-    min-height: 93vh;
+    min-height: 90.5vh;
+    padding: 12px;
     background-color: rgb(240, 148, 73);
     display: flex;
     flex-direction: row;

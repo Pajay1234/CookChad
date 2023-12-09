@@ -4,10 +4,12 @@ from openai import OpenAI
 caption = sys.argv[1]
 key = sys.argv[2]
 
+# open up an openai instance with an api key
 client = OpenAI(
     api_key=key
 )
 
+# fetch the chat completion content
 chat_completion = client.chat.completions.create(
     messages=[
         {

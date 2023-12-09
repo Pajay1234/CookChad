@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../components/poststyles.css'
 import LikeIcon from '../assets/icons/like.png'
 import LikedIcon from '../assets/icons/liked.png'
@@ -22,17 +22,22 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
   const [user, setUser] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
-  const [isLiked, setIsLiked] = useState(Boolean(likes[creatorId])); 
+  const isYourPost = userId == creatorId;
+  const [isLiked, setIsLiked] = useState(Boolean(likes[userId])); 
   const navigate = useNavigate();
 
+  // Navigate to the corresponding post page
   const navigateToPost = () => {
     navigate(`/post/${postId}`);
   }
 
+  // Set the state to show options
   const handleShowOptions = () => {
     setShowOptions(!showOptions);
   }
 
+
+  // Delete the post from the database by doing an API call to the backend and reload
   const handleDelete = async () => {
     try {
       console.log("Deleting post...");
@@ -45,6 +50,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
     }
   }
 
+  // Increment the like count and set the corresponding state
   const handleLike = async () => {
     try {
       console.log("Liking post...");
@@ -60,9 +66,9 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
     } catch (error) {
       console.log(error);
     }
-
   }
 
+  // Get the post creator's name
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -77,15 +83,17 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
 
   return (
     <div className="postContainer" >
+      {/* Display the post's content inclduing the username, caption, and image*/} 
       <div className="imgContainer">
         <img className="img" src={content} />
       </div>
       <h1 className="captionContainer">
-        <strong>{user}:</strong> {caption}
+        <strong><Link to={`/user-profile/${creatorId}`}>{user}</Link>:</strong> {caption}
       </h1>
       <div>
         <div className="flex">
           <div className="mr-auto flex items-center justify-center gap-2">
+            {/* Set the liked icon depending on the state of the isLiked state*/} 
             {isLiked ?
               <img src={LikedIcon} className='w-5 h-5 hover:scale-110' onClick={handleLike} /> :
               <img src={LikeIcon} className='w-5 h-5 hover:scale-110' onClick={handleLike} />
@@ -96,9 +104,9 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
             <img src={Option} className='w-5 h-5 hover:scale-110' onClick={handleShowOptions} />
             {showOptions && (
               <div className="absolute bg-white border rounded-md shadow-md">
+                {/* Set dropdown options for deleting (if it is the current user's post) and navigate to post */} 
                 <div className="flex flex-col">
-                  <div className="p-2 hover:bg-gray-100 cursor-pointer">Edit</div>
-                  <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div>
+                  {isYourPost && <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div> }
                   <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={navigateToPost}>Navigate To Post</div>
                 </div>
               </div>

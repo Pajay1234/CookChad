@@ -16,6 +16,7 @@ app.use(cors({
 }));
 
 
+// Allow for up to 50 mb files, allow for json parsing, and open up routes for user and post controllers.
 app.use(express.urlencoded({limit: '50mb'}));
 app.use(express.json({limit: '50mb'}));
 app.use('/api/post', postRoutes);
