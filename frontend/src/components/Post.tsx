@@ -26,14 +26,18 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
   const [isLiked, setIsLiked] = useState(Boolean(likes[userId])); 
   const navigate = useNavigate();
 
+  // Navigate to the corresponding post page
   const navigateToPost = () => {
     navigate(`/post/${postId}`);
   }
 
+  // Set the state to show options
   const handleShowOptions = () => {
     setShowOptions(!showOptions);
   }
 
+
+  // Delete the post from the database by doing an API call to the backend and reload
   const handleDelete = async () => {
     try {
       console.log("Deleting post...");
@@ -46,6 +50,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
     }
   }
 
+  // Increment the like count and set the corresponding state
   const handleLike = async () => {
     try {
       console.log("Liking post...");
@@ -63,6 +68,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
     }
   }
 
+  // Get the post creator's name
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -77,6 +83,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
 
   return (
     <div className="postContainer" >
+      {/* Display the post's content inclduing the username, caption, and image*/} 
       <div className="imgContainer">
         <img className="img" src={content} />
       </div>
@@ -86,6 +93,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
       <div>
         <div className="flex">
           <div className="mr-auto flex items-center justify-center gap-2">
+            {/* Set the liked icon depending on the state of the isLiked state*/} 
             {isLiked ?
               <img src={LikedIcon} className='w-5 h-5 hover:scale-110' onClick={handleLike} /> :
               <img src={LikeIcon} className='w-5 h-5 hover:scale-110' onClick={handleLike} />
@@ -96,6 +104,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
             <img src={Option} className='w-5 h-5 hover:scale-110' onClick={handleShowOptions} />
             {showOptions && (
               <div className="absolute bg-white border rounded-md shadow-md">
+                {/* Set dropdown options for deleting (if it is the current user's post) and navigate to post */} 
                 <div className="flex flex-col">
                   {isYourPost && <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={handleDelete}>Delete</div> }
                   <div className="p-2 hover:bg-gray-100 cursor-pointer" onClick={navigateToPost}>Navigate To Post</div>

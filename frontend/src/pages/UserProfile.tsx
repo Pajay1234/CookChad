@@ -136,7 +136,7 @@ const UserProfile = () => {
             <div className="flex flex-col py-2 px-16 justify-center gap-2">
                 <div className="flex gap-16">
                     <p className="text-2xl font-bold">{userDetails.name}</p>
-
+                    {/* Display the follow or following button depending whether the user has been followed or not. The button will not appear for anyone trying to follow themself. */}
                     <div className="flex gap-8">
                         {isSelf ? null :
                             (isMyFriend ? (
@@ -163,6 +163,7 @@ const UserProfile = () => {
 
             {toggle === 'Posts' && posts != null ? (
                 <div className="dashContainer">
+                    {/* DDisplay the user's posts unless there is no posts*/}
                     {posts.length > 0 ? (
                         posts.map((post: any) => (
                             <Post
@@ -182,7 +183,7 @@ const UserProfile = () => {
                     )}
                 </div>
             ) : null}
-
+            {/* If the liked post is toggled, display the liked post's content of the user; otherwise, display that there are no liked posts */}
             {toggle === 'Liked Posts' && likedPosts != null ? (
                 <div className="dashContainer">
                     {likedPosts.length > 0 ? (
@@ -204,7 +205,7 @@ const UserProfile = () => {
                     )}
                 </div>
             ) : null}
-
+              {/* If the following is toggled, display all the user's followers along with a link to their profile; otherwise, display there are no followers */}
             {toggle === 'Followers' && followers != null ? (
                 <div className="bg-[#F09449] min-h-[90.5vh] p-16">
                     {followers.length > 0 ? (
@@ -221,7 +222,7 @@ const UserProfile = () => {
                     )}
                 </div>
             ) : null}
-
+            {/* If the following is toggled, display all the user's followings along with a link to their profile; otherwise, display the user has no followings */}
             {toggle === 'Following' && following != null ? (
                 <div className="bg-[#F09449] min-h-[90.5vh] p-16">
                     {following.length > 0 ? (

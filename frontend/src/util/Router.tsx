@@ -31,7 +31,7 @@ class Router extends React.Component<routerProps, routerState> {
     }   
 
     
-
+    // Routes for all the pages. If the user navigates there, it will route them there. 
     render() {
        
         return (

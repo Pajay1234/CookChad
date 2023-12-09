@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const { ObjectId } = require('mongoose').Types
 const Post = require('../models/postModel');
 
+// Adds a user to the database from the registration form
 const setUser = async (req, res) => {
   const user = req.body;
   user.email = user.email.toLowerCase();
@@ -18,6 +19,7 @@ const setUser = async (req, res) => {
   }
 }
 
+// Gets the user token from the email and password.
 const getUserTokenByLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -38,6 +40,7 @@ const getUserTokenByLogin = async (req, res) => {
 }
 
 
+// Gets the user token from the JWT token
 const getUserByJWTToken = async (req, res) => {
   try {
     const { JWTToken } = req.body;
@@ -50,6 +53,7 @@ const getUserByJWTToken = async (req, res) => {
   }
 }
 
+// Adds the post to the user's list of posts
 const createPostUser = async (req, res) => {
   try {
 
@@ -62,6 +66,8 @@ const createPostUser = async (req, res) => {
   }
 }
 
+
+// Gets the user by the user ID
 const getUserByID = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -72,6 +78,7 @@ const getUserByID = async (req, res) => {
   }
 }
 
+// Gets all the posts from the users
 const getUserPosts = async (req, res) => {
   try {
 
@@ -87,6 +94,8 @@ const getUserPosts = async (req, res) => {
   }
 }
 
+
+// Add to list of user's liked posts
 const addToLiked = async (req, res) => {
   try {
     console.log(req.body);

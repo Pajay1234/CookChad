@@ -4,6 +4,7 @@ const axios = require('axios');
 const dotenv = require('dotenv').config()
 const { spawn } = require('child_process');
 
+// Handles API calls to create a post
 const createPost = async (req, res) => {
   try {
     const { caption, content, userId } = req.body;
@@ -15,6 +16,8 @@ const createPost = async (req, res) => {
       dataString = `${data}`
     });
 
+
+    // Handling outputs from Python
     pythonProcess.stderr.on('data', (data) => {
       console.error(`Error from Python script: ${data}`);
     });
@@ -36,6 +39,8 @@ const createPost = async (req, res) => {
           uid: userId,
           pid: doc._id
         }
+
+        // Add post to user's posts
         const userResponse = await axios.post(`http://localhost:5000/api/user/createPostUser`, body);
     
         res.status(201).json(newPost);
@@ -47,6 +52,7 @@ const createPost = async (req, res) => {
   }
 }
 
+// Get adjusted recipe and returns it from whatever is outputted in Python
 const getAdjustedRecipe = async (req, res) => { 
   const { caption, value } = req.query;
   console.log(caption)
@@ -67,6 +73,8 @@ const getAdjustedRecipe = async (req, res) => {
   });  
 
 }
+
+// Get all posts in database
 const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
@@ -76,6 +84,7 @@ const getPosts = async (req, res) => {
   }
 }
 
+// Get the post from the Post ID
 const getPostByID = async (req, res) => {
   try {
     const { postId } = req.params;
@@ -86,6 +95,7 @@ const getPostByID = async (req, res) => {
   }
 }
 
+// Get all posts from a user
 const getUserPost = async (req, res) => {
   try {
     const { userID }  = req.params;
@@ -101,6 +111,7 @@ const getUserPost = async (req, res) => {
   }
 }
 
+// Adds likes or remove likes from a post
 const likePost = async (req, res) => {
   try {
     const id = req.params.postId;
@@ -136,6 +147,7 @@ const likePost = async (req, res) => {
   }
 }
 
+// Deletes a post from the database using the Post ID and the User ID
 const deletePost = async (req, res) => {
   try {
     const id = req.params.postId;
@@ -152,7 +164,7 @@ const deletePost = async (req, res) => {
   }
 }
 
-
+// Adds a new comment to the database
 const createComment = async (req, res) => {
   try {
     const response = await Post.updateOne({_id: new ObjectId(req.body.pid)}, {$push: {  comments: {uid: new ObjectId(req.body.uid), name: req.body.name, comment: req.body.comment}}});
@@ -165,6 +177,7 @@ const createComment = async (req, res) => {
   }
 }
 
+// Fetches all comments from a post
 const fetchComments = async (req, res) => {
   try {
     const response = await Post.findOne({_id: new ObjectId(req.params.postId)}, {comments: 1});

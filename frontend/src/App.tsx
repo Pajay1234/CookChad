@@ -5,7 +5,8 @@ import Router from './util/Router';
 
 function App() {
   return (
-    
+
+    // Display the router here.
         <Router />
     
   );

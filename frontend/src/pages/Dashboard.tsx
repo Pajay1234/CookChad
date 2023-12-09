@@ -17,6 +17,7 @@ const DashboardScreen = () => {
   const [userId, setUserId] = useState('')
   const [posts, setPosts] = useState([])
 
+  // At loading, get the user's name and ID from the JWT token and get all the posts from the database
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
@@ -47,6 +48,7 @@ const DashboardScreen = () => {
 
   return (
     <div><Taskbar userID={userId} /> <div className="pageContainer">
+      {/* Display all posts and the corresponding contents. */}
       <div className="dashContainer">
         {posts.map((post: any) => (
           <Post

@@ -17,6 +17,7 @@ const CreatePost = () => {
     const navigate = useNavigate();
 
     
+    // Get the user ID from the JWT token
     useEffect(() => {
       const fetchData = async () => {
         const token = localStorage.getItem('token');
@@ -36,6 +37,7 @@ const CreatePost = () => {
       fetchData();
     }, []);
 
+    // Create a post, do an API call to the backend and pass those parameters to the backend to create the post in the DB, and navigate to the dashboard
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         try { 
@@ -51,11 +53,13 @@ const CreatePost = () => {
           let response = null;
           setIsSubmitting(true);
           console.log("clicky");
+          // Set state to submitting 
           if (!isSubmitting) {
             await setSubmitState('submitting...');
             response = await axios.post('/api/post/createPost', post);
             console.log("sent");
           }
+          // Navigate dashboard 
           if (response) navigate('/dashboard')
           console.log(response);
         }
@@ -66,6 +70,8 @@ const CreatePost = () => {
         await setSubmitState('submit');
       
     }
+
+    // Convert the image to a base64 string
 
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {  
         e.preventDefault();
@@ -84,6 +90,7 @@ const CreatePost = () => {
     }
     return (
     <div><Taskbar userID={userId}/><div className = 'pageContainer'>
+      { /* Area containing the input box, upload image button, and submit button */}
       <div className = "createPostContainer">
         <h1 className = 'leftText2'> Create Post</h1>
         <textarea className = "inputBox" placeholder="Caption" onChange={(e) => setCaption(e.target.value)}/>

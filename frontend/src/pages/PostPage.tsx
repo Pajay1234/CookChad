@@ -10,17 +10,9 @@ interface User {
     _id: string
 }
 
-/*
-interface Post { 
-    caption: string,
-    content: string,
-    creator: string,
-    recipe: string
-}
-*/
+
 
 const PostPage = () => {
-    //const [post, setPost] = useState<Post | null>(null);
     const [post, setPost] = useState<any>({});
     const [user, setUser] = useState<any>({});
     const { postId } = useParams();
@@ -32,13 +24,14 @@ const PostPage = () => {
     const[commentsDisplayed, setCommentsDisplayed] = useState<any>([])
     const [userId, setUserId] = useState('')
     
-
+    // set the new recipe to the adjusted recipe
     const onSubmitAdjustedRecipe = (e: React.ChangeEvent<HTMLSelectElement>) => { 
         e.preventDefault();
         setRecipe(e.target.value)
        
     }
 
+    // When new comment is submitted, do an APi call to the backend to create the comment in the DB, and refetch all the comments
     const onSubmitComment = async (e: React.MouseEvent<HTMLButtonElement>) =>  {
         try {
             e.preventDefault();
@@ -53,6 +46,7 @@ const PostPage = () => {
         }
     }   
 
+    // Get the post, user, and comments from the DB
     useEffect(() => {    
         const getData = async () => {
             try {
@@ -79,6 +73,7 @@ const PostPage = () => {
         
         }, [])
         
+        // When the recipe is changed, do an API call to the backend to get the new recipe
         useEffect( () => {const retrieveRecipe = async () => {
             if (recipe != '' && recipe != 'regular') {
                 setIsLoading(true)
@@ -98,6 +93,7 @@ const PostPage = () => {
         <div className = "postPageContainer">
             <div className = "postPageLeft">
                 <div className = "postContainer2">
+                    {/* Display the post image, user ID, and caption.*/ }
                     <img className = "imgContainer" src={post?.content} />
                     <p> <strong><Link to={`/user-profile/${user._id}`}>{user?.name}</Link></strong> : {post?.caption} </p>
                 </div>
@@ -106,8 +102,10 @@ const PostPage = () => {
                 <div className = "recipeBox">
                     <p className = "recipe"> {recipeResponse} </p>
                 </div>  
+                {/* Display adjust recipe label and a list of dropdown options */}
                 <div className = "adjustRecipeMenu">
                     <label className="adjustRecipeLabel">Adjust Recipe: </label>
+                    {/* Display adjust recipe dropdown. Disable if a recipe is loading. */}
                     <select disabled={isLoading} name="Adjust Recipe" className="adjustRecipeDropdown" onChange={(e) => onSubmitAdjustedRecipe(e)}>
                         <option value="regular">Default</option>
                         <option value="reduced-fat">Reduced fat</option>
@@ -116,6 +114,7 @@ const PostPage = () => {
                     </select>
                 </div>
             </div>
+            {/* Display all comments on the far right with the name and the corresponding comment. */}
             <div className = "postPageFarRight">
                 <div className = "commentDisplayBox">
                     {commentsDisplayed.map((comment: any, index: number) => (

@@ -2,6 +2,7 @@ const express = require('express')
 const postController = require('../controllers/postController')
 const router = express.Router()
 
+// All the routes for anything related with posts / post model
 router.post('/createPost', postController.createPost)
 router.post('/getPosts', postController.getPosts)
 router.get('/getPost/:postId', postController.getPostByID)
