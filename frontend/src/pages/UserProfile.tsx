@@ -88,6 +88,7 @@ const UserProfile = () => {
         userDetails.likedPosts?.forEach(async (postID: any) => {
             try {
                 const response: any = await axios.get(`/api/post/getPost/${postID}`);
+                console.log(response)
                 likedPostArray.push(response.data);
             } catch (error) {
                 console.log(error);
@@ -166,6 +167,7 @@ const UserProfile = () => {
                     {/* DDisplay the user's posts unless there is no posts*/}
                     {posts.length > 0 ? (
                         posts.map((post: any) => (
+                            post ? (
                             <Post
                                 key={post._id}
                                 postId={post._id}
@@ -175,7 +177,10 @@ const UserProfile = () => {
                                 comments={post.comments}
                                 creatorId={post.creator}
                                 userId={currUserID}
-                            />))
+                            />) : (null)
+                        )
+                            
+                        ) 
                     ) : (
                         <div className="">
                             <p>{userDetails.name} has not posted anything!</p>
@@ -188,6 +193,7 @@ const UserProfile = () => {
                 <div className="dashContainer">
                     {likedPosts.length > 0 ? (
                         likedPosts.map((post: any) => (
+                            post ? (
                             <Post
                                 key={post._id}
                                 postId={post._id}
@@ -197,7 +203,10 @@ const UserProfile = () => {
                                 comments={post.comments}
                                 creatorId={post.creator}
                                 userId={currUserID}
-                            />))
+                            />) : (null)
+                        )
+                            
+                        )
                     ) : (
                         <div className="">
                             <p>{userDetails.name} has not liked any posts!</p>

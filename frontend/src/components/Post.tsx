@@ -40,9 +40,13 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
   // Delete the post from the database by doing an API call to the backend and reload
   const handleDelete = async () => {
     try {
-      console.log("Deleting post...");
-      setShowOptions(!showOptions);
-      const response = await axios.delete(`/api/post/delete/${postId}`);
+      console.log("clicky");
+      //setShowOptions(!showOptions);
+      const body = {
+        pid: postId,
+        cid: creatorId
+      }
+      const response = await axios.post('/api/post/delete', {pid: postId, cid:creatorId});
       console.log(response);
       window.location.reload();
     } catch (error) {
@@ -83,6 +87,7 @@ const Post = ({ postId, caption, content, userId, tags, likes, comments, creator
 
   return (
     <div className="postContainer" >
+      
       {/* Display the post's content inclduing the username, caption, and image*/} 
       <div className="imgContainer">
         <img className="img" src={content} />

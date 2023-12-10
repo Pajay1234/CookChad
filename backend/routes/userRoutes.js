@@ -12,7 +12,6 @@ router.post('/getUserPosts', userController.getUserPosts);
 router.post('/getUserPosts', userController.getUserPosts);
 router.post('/addToLiked', userController.addToLiked);
 router.post('/removeFromLiked', userController.removeFromLiked);
-
 router.patch('/addFriend/:currUserId/:friendId', userController.addRemoveFriend);
 
 module.exports = router;

@@ -150,11 +150,11 @@ const likePost = async (req, res) => {
 // Deletes a post from the database using the Post ID and the User ID
 const deletePost = async (req, res) => {
   try {
-    const id = req.params.postId;
-    const userId = req.body.userId;
-
-    const deletedPost = await Post.findByIdAndDelete(id);
-    console.log(id)
+    const pid = req.body.pid;
+    const cid = req.body.cid;
+    console.log(pid)
+    const deletedPost = await Post.findByIdAndDelete(pid);
+    
     if (!deletedPost) {
       return res.status(404).json({ error: 'Post not found' });
     }
